@@ -11,9 +11,8 @@ class CheckListCover(core_models.TimeStampedModel):
     name = models.CharField(max_length=200)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
 
-
     def __str__(self):
-        return self.team_name
+        return self.name
 
 
 class CheckListQuestion(core_models.TimeStampedModel):
@@ -48,4 +47,4 @@ class CheckListAnswer(core_models.TimeStampedModel):
     later_answer = models.BooleanField(default=False)
 
     def is_changed(self):
-        return self.previous_answer == self.later_answer
+        return self.previous_answer != self.later_answer
