@@ -17,4 +17,10 @@ class CheckListQuestionAdmin(admin.ModelAdmin):
 
 @admin.register(models.CheckListAnswer)
 class CheckListAnswerAdmin(admin.ModelAdmin):
-    list_display = ("user", "question", "previous_answer", "later_answer", "is_changed")
+    list_display = (
+        "check_list_cover",
+        "question",
+        "previous_answer",
+        "later_answer",
+        "is_changed",
+    )
