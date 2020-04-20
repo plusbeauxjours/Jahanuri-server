@@ -4,7 +4,7 @@ from users import models as user_models
 from core import models as core_models
 
 
-class BodyClassOrder(core_models.TimeStampedModel):
+class ClassOrder(core_models.TimeStampedModel):
     order = models.IntegerField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
@@ -20,8 +20,8 @@ class ReportCover(core_models.TimeStampedModel):
         (BODY_STUDY, "Body Study"),
         (ETC, "Etc"),
     )
-    body_class_order = models.ForeignKey(
-        BodyClassOrder, on_delete=models.CASCADE, blank=True, null=True
+    class_order = models.ForeignKey(
+        ClassOrder, on_delete=models.CASCADE, blank=True, null=True
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
@@ -29,7 +29,7 @@ class ReportCover(core_models.TimeStampedModel):
 
     def __str__(self):
         return (
-            str(self.body_class_order.order)
+            str(self.class_order.order)
             + " "
             + self.user.last_name
             + " "
@@ -69,7 +69,7 @@ class Report(core_models.TimeStampedModel):
 
     def __str__(self):
         return (
-            str(self.report_cover.body_class_order)
+            str(self.report_cover.class_order)
             + " "
             + self.report_cover.user.last_name
             + " "

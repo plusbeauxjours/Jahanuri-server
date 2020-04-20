@@ -43,7 +43,7 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
-    "bodyClasses.apps.BodyClassesConfig",
+    "classes.apps.ClassesConfig",
     "checklists.apps.ChecklistsConfig",
 ]
 

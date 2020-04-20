@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.BodyClassOrder)
+@admin.register(models.ClassOrder)
 class CheckListQuestionAdmin(admin.ModelAdmin):
     list_display = ("order", "start_date", "end_date")
 
@@ -12,7 +12,7 @@ class CheckListCoverAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "report_type",
-        "body_class_order",
+        "class_order",
     )
 
 
