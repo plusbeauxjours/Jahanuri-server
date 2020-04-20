@@ -4,6 +4,15 @@ from users import models as user_models
 from core import models as core_models
 
 
+class BodyClassOrder(core_models.TimeStampedModel):
+    order = models.IntegerField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.order)
+
+
 class ReportCover(core_models.TimeStampedModel):
     BODY_STUDY = "body study"
     ETC = "etc"
@@ -11,15 +20,21 @@ class ReportCover(core_models.TimeStampedModel):
         (BODY_STUDY, "Body Study"),
         (ETC, "Etc"),
     )
+    body_class_order = models.ForeignKey(
+        BodyClassOrder, on_delete=models.CASCADE, blank=True, null=True
+    )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
     report_type = models.CharField(choices=REPORT_TYPE, max_length=200)
-    order = models.IntegerField(blank=True, null=True)
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.order) + self.user.last_name + self.user.first_name
+        return (
+            str(self.body_class_order.order)
+            + " "
+            + self.user.last_name
+            + " "
+            + self.user.first_name
+        )
 
 
 class Report(core_models.TimeStampedModel):
@@ -53,4 +68,10 @@ class Report(core_models.TimeStampedModel):
     diary = models.CharField(max_length=5000)
 
     def __str__(self):
-        return self.question
+        return (
+            str(self.report_cover.body_class_order)
+            + " "
+            + self.report_cover.user.last_name
+            + " "
+            + self.report_cover.user.first_name
+        )
