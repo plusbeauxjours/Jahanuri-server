@@ -7,4 +7,5 @@ class Query(object):
 
 
 class Mutation(object):
-    pass
+    me_mutation = mutations.MeMutation.Field(required=True)
+    create_user = mutations.CreateUser.Field(required=True)

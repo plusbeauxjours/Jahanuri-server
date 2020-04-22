@@ -21,3 +21,4 @@ class User(AbstractUser):
     user_img = models.ImageField(upload_to="user_imgs/", null=True, blank=True)
     bio = models.TextField(blank=True)
     verified = models.BooleanField(default=False)
+    has_kakao_account = models.BooleanField(default=False)

@@ -11,3 +11,8 @@ class UserType(DjangoObjectType):
 
 class MeReponse(graphene.ObjectType):
     user = graphene.Field(UserType)
+
+
+class CreateUserResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+    user = graphene.Field(UserType)

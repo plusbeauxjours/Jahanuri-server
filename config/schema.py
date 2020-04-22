@@ -7,10 +7,7 @@ from checklists import schema as checklist_schema
 
 
 class Query(
-    user_schema.Query,
-    class_schema.Query,
-    checklist_schema.Query,
-    graphene.ObjectType,
+    user_schema.Query, class_schema.Query, checklist_schema.Query, graphene.ObjectType,
 ):
     pass
 
