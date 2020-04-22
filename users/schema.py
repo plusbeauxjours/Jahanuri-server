@@ -9,3 +9,4 @@ class Query(object):
 class Mutation(object):
     me_mutation = mutations.MeMutation.Field(required=True)
     create_user = mutations.CreateUser.Field(required=True)
+    update_user = mutations.UpdateUser.Field(required=True)

@@ -16,3 +16,7 @@ class MeReponse(graphene.ObjectType):
 class CreateUserResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     user = graphene.Field(UserType)
+
+
+class UpdateUserResponse(graphene.ObjectType):
+    user = graphene.Field(UserType)
