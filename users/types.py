@@ -28,3 +28,7 @@ class CreateUserResponse(graphene.ObjectType):
 
 class UpdateUserResponse(graphene.ObjectType):
     user = graphene.Field(UserType)
+
+
+class RemoveUserResponse(graphene.ObjectType):
+    ok = graphene.Boolean()

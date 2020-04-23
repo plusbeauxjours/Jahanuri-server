@@ -6,19 +6,6 @@ from graphene_file_upload.scalars import Upload
 from . import types, models
 
 
-class MeMutation(graphene.Mutation):
-    class Arguments:
-        username = graphene.String(required=True)
-
-    Output = types.MeReponse
-
-    @login_required
-    def mutate(self, info, **kwargs):
-        user = info.context.user
-
-        return types.MeReponse(user=user)
-
-
 class CreateUser(graphene.Mutation):
     class Arguments:
         username = graphene.String(required=True)
@@ -77,3 +64,18 @@ class UpdateUser(graphene.Mutation):
         user.save()
 
         return types.UpdateUserResponse(user=user)
+
+
+class RemoveUser(graphene.Mutation):
+    class Arguments:
+        uuid = graphene.String(required=True)
+
+    Output = types.RemoveUserResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+        uuid = kwargs.get("uuid", "")
+        user = models.User.objects.get(uuid=uuid)
+        user.delete()
+
+        return types.RemoveUserResponse(ok=True)

@@ -11,4 +11,5 @@ class CheckListCoverAdmin(admin.ModelAdmin):
         "last_name",
         "gender",
         "verified",
+        "uuid",
     )
