@@ -5,7 +5,7 @@ from core import models as core_models
 
 
 class ClassOrder(core_models.TimeStampedModel):
-    order = models.IntegerField(blank=True, null=True)
+    order = models.IntegerField(blank=True, null=True, unique=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
@@ -21,7 +21,7 @@ class ReportCover(core_models.TimeStampedModel):
         (ETC, "Etc"),
     )
     class_order = models.ForeignKey(
-        ClassOrder, on_delete=models.CASCADE, blank=True, null=True
+        ClassOrder, on_delete=models.PROTECT, blank=True, null=True
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)

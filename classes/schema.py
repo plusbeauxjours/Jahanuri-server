@@ -4,9 +4,24 @@ from . import types, queries, mutations
 
 class Query(object):
     get_all_classes = graphene.Field(
-        types.GetAllClassesReponse,
-        resolver=queries.resolve_get_all_classes,
+        types.GetClassListReponse,
+        resolver=queries.resolve_get_class_list,
         required=True,
+    )
+    get_report_cover_list = graphene.Field(
+        types.GetReportCoverListResponse,
+        resolver=queries.resolve_get_report_cover_list,
+        required=True,
+        args={"class_order_id": graphene.String(),},
+    )
+    get_report_list = graphene.Field(
+        types.GetReportListResponse,
+        resolver=queries.resolve_get_report_list,
+        required=True,
+        args={
+            "class_order_id": graphene.String(),
+            "class_order_user_uuid": graphene.String(),
+        },
     )
 
 

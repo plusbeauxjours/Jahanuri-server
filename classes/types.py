@@ -19,7 +19,7 @@ class ReportType(DjangoObjectType):
         model = models.Report
 
 
-class GetAllClassesReponse(graphene.ObjectType):
+class GetClassListReponse(graphene.ObjectType):
     clasees = graphene.List(ClassOrderType)
 
 
@@ -33,3 +33,35 @@ class UpdateClassOrderResponse(graphene.ObjectType):
 
 class RemoveClassOrderResponse(graphene.ObjectType):
     ok = graphene.Boolean()
+
+
+class GetReportCoverListResponse(graphene.ObjectType):
+    reportCovers = graphene.List(ReportCoverType)
+
+
+# class CreateReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+# class UpdateReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+# class RemoveReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+class GetReportListResponse(graphene.ObjectType):
+    reports = graphene.List(ReportType)
+
+
+# class CreateReportResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+# class UpdateReportResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+# class RemoveReportResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()

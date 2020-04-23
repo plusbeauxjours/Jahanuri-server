@@ -26,7 +26,7 @@ class CreateClassOrder(graphene.Mutation):
 
 class UpdateClassOrder(graphene.Mutation):
     class Arguments:
-        orderId = graphene.String(required=True)
+        order_id = graphene.String(required=True)
         order = graphene.Int()
         start_date = graphene.Date()
         end_date = graphene.Date()
@@ -35,12 +35,12 @@ class UpdateClassOrder(graphene.Mutation):
 
     @login_required
     def mutate(self, info, **kwargs):
-        orderId = kwargs.get("orderId")
+        order_id = kwargs.get("order_id")
         order = kwargs.get("order")
         start_date = kwargs.get("start_date")
         end_date = kwargs.get("end_date")
 
-        class_order = models.ClassOrder.objects.get(pk=orderId)
+        class_order = models.ClassOrder.objects.get(pk=order_id)
 
         if order != "":
             class_order.order = order
@@ -58,14 +58,14 @@ class UpdateClassOrder(graphene.Mutation):
 
 class RemoveClassOrder(graphene.Mutation):
     class Arguments:
-        orderId = graphene.String(required=True)
+        order_id = graphene.String(required=True)
 
     Output = types.RemoveClassOrderResponse
 
     @login_required
     def mutate(self, info, **kwargs):
-        orderId = kwargs.get("orderId")
-        class_order = models.ClassOrder.objects.get(id=orderId)
+        order_id = kwargs.get("order_id")
+        class_order = models.ClassOrder.objects.get(id=order_id)
         class_order.delete()
 
         return types.RemoveClassOrderResponse(ok=True)
