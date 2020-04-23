@@ -47,8 +47,8 @@ class UpdateReportCoverResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
 
-# class RemoveReportCoverResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
+class RemoveReportCoverResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
 
 
 class GetReportListResponse(graphene.ObjectType):

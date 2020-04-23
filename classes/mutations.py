@@ -117,3 +117,20 @@ class UpdateReportCover(graphene.Mutation):
         report_cover.save()
 
         return types.UpdateReportCoverResponse(ok=True)
+
+
+class RemoveReportCover(graphene.Mutation):
+    class Arguments:
+        report_uuid = graphene.String(required=True)
+
+    Output = types.RemoveReportCoverResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+        user = info.context.user
+        report_uuid = kwargs.get("report_uuid")
+        report_cover = models.ReportCover.objects.get(uuid=report_uuid)
+
+        report_cover.delete()
+
+        return types.RemoveReportCoverResponse(ok=True)
