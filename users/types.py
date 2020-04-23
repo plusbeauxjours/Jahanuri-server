@@ -13,6 +13,14 @@ class MeReponse(graphene.ObjectType):
     user = graphene.Field(UserType)
 
 
+class GetUserResponse(graphene.ObjectType):
+    user = graphene.Field(UserType)
+
+
+class GeClasstUsersResponse(graphene.ObjectType):
+    users = graphene.List(UserType)
+
+
 class CreateUserResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     user = graphene.Field(UserType)

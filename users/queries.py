@@ -6,3 +6,23 @@ from graphql_jwt.decorators import login_required
 def resolve_me(self, info):
     user = info.context.user
     return types.MeReponse(user=user)
+
+
+@login_required
+def resolve_get_user(self, info, **kwargs):
+    uuid = kwargs.get("uuid", None)
+
+    if uuid:
+        user = models.User.objects.get(uuid=uuid)
+
+        return types.GetUserResponse(user=user)
+
+
+@login_required
+def resolve_get_class_users(self, info, **kwargs):
+    class_order = kwargs.get("class_order", None)
+
+    if class_order:
+        users = models.User.objects.filter(class_order__order=class_order)
+
+        return types.GeClasstUsersResponse(users=users)

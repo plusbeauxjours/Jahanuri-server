@@ -20,5 +20,8 @@ class User(AbstractUser):
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     user_img = models.ImageField(upload_to="user_imgs/", null=True, blank=True)
     bio = models.TextField(blank=True)
+    class_order = models.ForeignKey(
+        "classes.ClassOrder", on_delete=models.CASCADE, blank=True, null=True
+    )
     verified = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)
