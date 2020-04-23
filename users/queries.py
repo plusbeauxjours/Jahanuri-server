@@ -9,12 +9,17 @@ def resolve_me(self, info):
 
 
 @login_required
+def resolve_get_all_users(self, info):
+    users = models.User.objects.all()
+    return types.GetAllUsersResponse(users=users)
+
+
+@login_required
 def resolve_get_user(self, info, **kwargs):
     uuid = kwargs.get("uuid", None)
 
     if uuid:
         user = models.User.objects.get(uuid=uuid)
-
         return types.GetUserResponse(user=user)
 
 
@@ -24,5 +29,4 @@ def resolve_get_class_users(self, info, **kwargs):
 
     if class_order:
         users = models.User.objects.filter(class_order__order=class_order)
-
-        return types.GeClasstUsersResponse(users=users)
+        return types.GetClasstUsersResponse(users=users)

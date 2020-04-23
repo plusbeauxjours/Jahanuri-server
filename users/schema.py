@@ -11,10 +11,15 @@ class Query(object):
         args={"uuid": graphene.String(required=True),},
     )
     get_class_users = graphene.Field(
-        types.GeClasstUsersResponse,
+        types.GetClasstUsersResponse,
         resolver=queries.resolve_get_class_users,
         required=True,
         args={"class_order": graphene.Int(required=True),},
+    )
+    get_all_users = graphene.Field(
+        types.GetAllUsersResponse,
+        resolver=queries.resolve_get_all_users,
+        required=True,
     )
 
 

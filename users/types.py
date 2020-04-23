@@ -17,7 +17,11 @@ class GetUserResponse(graphene.ObjectType):
     user = graphene.Field(UserType)
 
 
-class GeClasstUsersResponse(graphene.ObjectType):
+class GetClasstUsersResponse(graphene.ObjectType):
+    users = graphene.List(UserType)
+
+
+class GetAllUsersResponse(graphene.ObjectType):
     users = graphene.List(UserType)
 
 
