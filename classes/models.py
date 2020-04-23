@@ -25,7 +25,9 @@ class ReportCover(core_models.TimeStampedModel):
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    report_type = models.CharField(choices=REPORT_TYPE, max_length=200)
+    report_type = models.CharField(
+        choices=REPORT_TYPE, max_length=200, default=BODY_STUDY
+    )
 
     def __str__(self):
         return (

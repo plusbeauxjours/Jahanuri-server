@@ -36,9 +36,9 @@ class UpdateClassOrder(graphene.Mutation):
     @login_required
     def mutate(self, info, **kwargs):
         order_id = kwargs.get("order_id")
-        order = kwargs.get("order")
-        start_date = kwargs.get("start_date")
-        end_date = kwargs.get("end_date")
+        order = kwargs.get("order", "")
+        start_date = kwargs.get("start_date", "")
+        end_date = kwargs.get("end_date", "")
 
         class_order = models.ClassOrder.objects.get(pk=order_id)
 
@@ -69,3 +69,51 @@ class RemoveClassOrder(graphene.Mutation):
         class_order.delete()
 
         return types.RemoveClassOrderResponse(ok=True)
+
+
+class CreateReportCover(graphene.Mutation):
+    class Arguments:
+        order_id = graphene.String(required=True)
+        report_type = graphene.String()
+
+    Output = types.CreateReportCoverResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+        user = info.context.user
+        order_id = kwargs.get("order_id")
+        report_type = kwargs.get("report_type", "body study")
+        class_order = models.ClassOrder.objects.get(id=order_id)
+        report_cover = models.ReportCover.objects.create(
+            class_order=class_order, user=user, report_type=report_type
+        )
+
+        return types.CreateReportCoverResponse(ok=True)
+
+
+class UpdateReportCover(graphene.Mutation):
+    class Arguments:
+        order_id = graphene.String()
+        report_uuid = graphene.String(required=True)
+        report_type = graphene.String()
+
+    Output = types.UpdateReportCoverResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+        user = info.context.user
+        report_uuid = kwargs.get("report_uuid")
+        order_id = kwargs.get("order_id", "")
+        report_type = kwargs.get("report_type", "")
+        class_order = models.ClassOrder.objects.get(id=order_id)
+        report_cover = models.ReportCover.objects.get(uuid=report_uuid)
+
+        if order_id != "":
+            report_cover.class_order = class_order
+
+        if report_type != "":
+            report_cover.report_type = report_type
+
+        report_cover.save()
+
+        return types.UpdateReportCoverResponse(ok=True)

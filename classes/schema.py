@@ -29,3 +29,5 @@ class Mutation(object):
     create_class_order = mutations.CreateClassOrder.Field(required=True)
     update_class_order = mutations.UpdateClassOrder.Field(required=True)
     remove_class_order = mutations.RemoveClassOrder.Field(required=True)
+    create_report_cover = mutations.CreateReportCover.Field(required=True)
+    update_report_cover = mutations.UpdateReportCover.Field(required=True)

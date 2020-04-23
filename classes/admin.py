@@ -13,6 +13,7 @@ class CheckListCoverAdmin(admin.ModelAdmin):
         "user",
         "report_type",
         "class_order",
+        "uuid",
     )
 
 
