@@ -55,13 +55,13 @@ class GetReportListResponse(graphene.ObjectType):
     reports = graphene.List(ReportType)
 
 
-# class CreateReportResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
+class CreateReportResponse(graphene.ObjectType):
+    report = graphene.Field(ReportType)
 
 
-# class UpdateReportResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
+class UpdateReportResponse(graphene.ObjectType):
+    report = graphene.Field(ReportType)
 
 
-# class RemoveReportResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
+class RemoveReportResponse(graphene.ObjectType):
+    ok = graphene.Boolean()

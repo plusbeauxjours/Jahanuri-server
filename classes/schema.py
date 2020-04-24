@@ -32,3 +32,6 @@ class Mutation(object):
     create_report_cover = mutations.CreateReportCover.Field(required=True)
     update_report_cover = mutations.UpdateReportCover.Field(required=True)
     remove_report_cover = mutations.RemoveReportCover.Field(required=True)
+    create_report = mutations.CreateReport.Field(required=True)
+    update_report = mutations.UpdateReport.Field(required=True)
+    remove_report = mutations.RemoveReport.Field(required=True)

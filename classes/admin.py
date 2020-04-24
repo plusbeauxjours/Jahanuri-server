@@ -3,12 +3,12 @@ from . import models
 
 
 @admin.register(models.ClassOrder)
-class CheckListQuestionAdmin(admin.ModelAdmin):
+class ClassOrderAdmin(admin.ModelAdmin):
     list_display = ("order", "start_date", "end_date")
 
 
 @admin.register(models.ReportCover)
-class CheckListCoverAdmin(admin.ModelAdmin):
+class ReportCoverAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "report_type",
@@ -18,5 +18,5 @@ class CheckListCoverAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Report)
-class CheckListQuestionAdmin(admin.ModelAdmin):
-    list_display = ("report_cover", "created_at")
+class ReportAdmin(admin.ModelAdmin):
+    list_display = ("report_cover", "created_at", "uuid")
