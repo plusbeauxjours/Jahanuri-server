@@ -3,7 +3,7 @@ from . import types, queries, mutations
 
 
 class Query(object):
-    get_all_classes = graphene.Field(
+    get_class_list = graphene.Field(
         types.GetClassListReponse,
         resolver=queries.resolve_get_class_list,
         required=True,
@@ -20,7 +20,7 @@ class Query(object):
         required=True,
         args={
             "class_order_id": graphene.String(),
-            "class_order_user_uuid": graphene.String(),
+            "user_uuid": graphene.String(),
         },
     )
 

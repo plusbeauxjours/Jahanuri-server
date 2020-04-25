@@ -8,6 +8,7 @@ class CheckListCoverType(DjangoObjectType):
     class Meta:
         model = models.CheckListCover
 
+
 class CheckListQuestionType(DjangoObjectType):
     class Meta:
         model = models.CheckListQuestion
@@ -16,3 +17,17 @@ class CheckListQuestionType(DjangoObjectType):
 class CheckListAnswerType(DjangoObjectType):
     class Meta:
         model = models.CheckListAnswer
+
+
+class CheckListType(graphene.InputObjectType):
+    uuid = graphene.String()
+    previous = graphene.Boolean()
+    later = graphene.Boolean()
+
+
+class GetCheckListListReponse(graphene.ObjectType):
+    checkLists = graphene.List(CheckListAnswerType)
+
+
+class CheckListResponse(graphene.ObjectType):
+    ok = graphene.Boolean()

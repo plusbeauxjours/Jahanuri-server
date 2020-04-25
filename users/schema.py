@@ -16,9 +16,9 @@ class Query(object):
         required=True,
         args={"class_order": graphene.Int(required=True),},
     )
-    get_all_users = graphene.Field(
-        types.GetAllUsersResponse,
-        resolver=queries.resolve_get_all_users,
+    get_user_list = graphene.Field(
+        types.GetUserListResponse,
+        resolver=queries.resolve_get_user_list,
         required=True,
     )
 

@@ -21,7 +21,7 @@ class GetClasstUsersResponse(graphene.ObjectType):
     users = graphene.List(UserType)
 
 
-class GetAllUsersResponse(graphene.ObjectType):
+class GetUserListResponse(graphene.ObjectType):
     users = graphene.List(UserType)
 
 

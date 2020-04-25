@@ -9,9 +9,9 @@ def resolve_me(self, info):
 
 
 @login_required
-def resolve_get_all_users(self, info):
+def resolve_get_user_list(self, info):
     users = models.User.objects.all()
-    return types.GetAllUsersResponse(users=users)
+    return types.GetUserListResponse(users=users)
 
 
 @login_required

@@ -23,5 +23,5 @@ class User(AbstractUser):
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
-    verified = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False, editable=False)
     has_kakao_account = models.BooleanField(default=False)
