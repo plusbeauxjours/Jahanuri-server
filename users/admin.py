@@ -10,6 +10,8 @@ class CheckListCoverAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "gender",
-        "verified",
+        "has_submited_survey",
+        "has_submited_application",
+        "has_paid",
         "uuid",
     )
