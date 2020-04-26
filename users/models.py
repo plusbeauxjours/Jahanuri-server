@@ -23,7 +23,7 @@ class User(AbstractUser):
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
-    has_submited_survey = models.BooleanField(default=False)
+    has_submited_check_list = models.BooleanField(default=False)
     has_submited_application = models.BooleanField(default=False)
     has_paid = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)
