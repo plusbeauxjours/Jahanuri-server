@@ -24,6 +24,13 @@ class CheckList(graphene.Mutation):
             check_list.previous_answer = cl.previous
             check_list.later_answer = cl.later
             check_list.save()
+        if check_list_cover.previous_submit is False:
+            check_list_cover.previous_submit = True
+            check_list_cover.save()
+        elif check_list_cover.later_submit is False:
+            check_list_cover.later_submit = True
+            check_list_cover.save()
+        else:
+            pass
 
         return types.CheckListResponse(ok=True)
-

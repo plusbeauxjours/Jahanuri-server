@@ -9,6 +9,11 @@ class Query(object):
         required=True,
         args={"user_uuid": graphene.String(), "name": graphene.String()},
     )
+    get_check_list_questions = graphene.Field(
+        types.GetCheckListQuestionsResponse,
+        resolver=queries.resolve_get_check_list_questions,
+        required=True,
+    )
 
 
 class Mutation(object):

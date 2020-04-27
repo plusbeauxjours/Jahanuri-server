@@ -31,3 +31,7 @@ class GetCheckListListReponse(graphene.ObjectType):
 
 class CheckListResponse(graphene.ObjectType):
     ok = graphene.Boolean()
+
+
+class GetCheckListQuestionsResponse(graphene.ObjectType):
+    checkListQuestions = graphene.List(CheckListQuestionType)

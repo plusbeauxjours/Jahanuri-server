@@ -8,6 +8,8 @@ class CheckListCover(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    previous_submit = models.BooleanField(default=False)
+    later_submit = models.BooleanField(default=False)
 
     def wood_before(self):
         wood = CheckListAnswer.objects.filter(
@@ -69,6 +71,19 @@ class CheckListCover(core_models.TimeStampedModel):
         )
         return water.count()
 
+    def sanghwa_before(self):
+        sanghwa = CheckListAnswer.objects.filter(
+            check_list_cover=self, question__elements="sanghwa", previous_answer=True
+        )
+        return sanghwa.count()
+
+    def sanghwa_after(self):
+        sanghwa = CheckListAnswer.objects.filter(
+            check_list_cover=self, question__elements="sanghwa", later_answer=True
+        )
+        return sanghwa.count()
+
+
     def __str__(self):
         return self.user.username
 
@@ -80,12 +95,14 @@ class CheckListQuestion(core_models.TimeStampedModel):
     ELEMENTS_EARTH = "earth"
     ELEMENTS_METAL = "metal"
     ELEMENTS_WATER = "water"
+    ELEMENTS_SANGHWA = "sanghwa"
     ELEMENTS_CHOICES = (
         (ELEMENTS_WOOD, "Wood"),
         (ELEMENTS_FIRE, "Fire"),
         (ELEMENTS_EARTH, "Earth"),
         (ELEMENTS_METAL, "Metal"),
         (ELEMENTS_WATER, "Water"),
+        (ELEMENTS_SANGHWA, "Sanghwa"),
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -99,9 +116,12 @@ class CheckListQuestion(core_models.TimeStampedModel):
 class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     check_list_cover = models.ForeignKey(CheckListCover, on_delete=models.CASCADE)
-    question = models.ForeignKey(CheckListQuestion, on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        CheckListQuestion, on_delete=models.CASCADE, related_name="question_set"
+    )
     previous_answer = models.BooleanField(blank=True, null=True)
     later_answer = models.BooleanField(blank=True, null=True)
+
 
     def element(self):
         return self.question.elements

@@ -17,3 +17,10 @@ def resolve_get_check_list_list(self, info, **kwargs):
         return types.GetCheckListListReponse(checkLists=checkLists)
     else:
         return types.GetCheckListListReponse(checkLists=None)
+
+
+@login_required
+def resolve_get_check_list_questions(self, info, **kwargs):
+
+    checkListQuestions = models.CheckListQuestion.objects.all()
+    return types.GetCheckListQuestionsResponse(checkListQuestions=checkListQuestions)
