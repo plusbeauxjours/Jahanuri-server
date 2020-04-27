@@ -19,17 +19,15 @@ class CheckListAnswerType(DjangoObjectType):
         model = models.CheckListAnswer
 
 
-class CheckListType(graphene.InputObjectType):
-    uuid = graphene.String()
-    previous = graphene.Boolean()
-    later = graphene.Boolean()
-
-
 class GetCheckListListReponse(graphene.ObjectType):
     checkLists = graphene.List(CheckListAnswerType)
 
 
-class CheckListResponse(graphene.ObjectType):
+class SubmitCheckListResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+
+
+class CheckListSubmitResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
 

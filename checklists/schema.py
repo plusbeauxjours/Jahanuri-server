@@ -17,4 +17,4 @@ class Query(object):
 
 
 class Mutation(object):
-    check_list = mutations.CheckList.Field(required=True)
+    submit_check_list = mutations.SubmitCheckList.Field(required=True)

@@ -7,7 +7,9 @@ from core import models as core_models
 class CheckListCover(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, blank=True, null=True)
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="checkListCover"
+    )
     previous_submit = models.BooleanField(default=False)
     later_submit = models.BooleanField(default=False)
 
@@ -83,7 +85,6 @@ class CheckListCover(core_models.TimeStampedModel):
         )
         return sanghwa.count()
 
-
     def __str__(self):
         return self.user.username
 
@@ -115,13 +116,10 @@ class CheckListQuestion(core_models.TimeStampedModel):
 
 class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    check_list_cover = models.ForeignKey(CheckListCover, on_delete=models.CASCADE)
-    question = models.ForeignKey(
-        CheckListQuestion, on_delete=models.CASCADE, related_name="question_set"
-    )
-    previous_answer = models.BooleanField(blank=True, null=True)
-    later_answer = models.BooleanField(blank=True, null=True)
-
+    check_list_cover = models.ForeignKey(CheckListCover, on_delete=models.CASCADE,)
+    question = models.ForeignKey(CheckListQuestion, on_delete=models.CASCADE)
+    previous_answer = models.BooleanField(default=False)
+    later_answer = models.BooleanField(default=False)
 
     def element(self):
         return self.question.elements

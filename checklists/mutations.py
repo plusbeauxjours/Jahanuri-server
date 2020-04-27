@@ -3,34 +3,46 @@ from graphql_jwt.decorators import login_required
 from . import types, models
 
 
-class CheckList(graphene.Mutation):
+class SubmitCheckList(graphene.Mutation):
     class Arguments:
         check_list_cover_uuid = graphene.String(required=True)
-        check_list_set = graphene.List(types.CheckListType)
+        is_previous_answer = graphene.Boolean(required=True)
+        true_answer_question_uuids = graphene.List(graphene.String)
 
-    Output = types.CheckListResponse
+    Output = types.SubmitCheckListResponse
 
     @login_required
     def mutate(self, info, **kwargs):
         user = info.context.user
         check_list_cover_uuid = kwargs.get("check_list_cover_uuid")
-        check_list_set = kwargs.get("check_list_set")
+        is_previous_answer = kwargs.get("is_previous_answer")
+        true_answer_question_uuids = kwargs.get("true_answer_question_uuids")
         check_list_cover = models.CheckListCover.objects.get(uuid=check_list_cover_uuid)
-        for cl in check_list_set:
-            question = models.CheckListQuestion.objects.get(uuid=cl.uuid)
-            check_list, created = models.CheckListAnswer.objects.get_or_create(
-                check_list_cover=check_list_cover, question=question,
+
+        if is_previous_answer:
+            all_questions = models.CheckListQuestion.objects.all()
+            for question in all_questions:
+                models.CheckListAnswer.objects.update_or_create(
+                    check_list_cover=check_list_cover,
+                    question=question,
+                    defaults={"previous_answer": False},
+                )
+            true_answers = models.CheckListAnswer.objects.filter(
+                question__uuid__in=true_answer_question_uuids,
+                check_list_cover=check_list_cover,
             )
-            check_list.previous_answer = cl.previous
-            check_list.later_answer = cl.later
-            check_list.save()
-        if check_list_cover.previous_submit is False:
+            true_answers.update(previous_answer=True)
             check_list_cover.previous_submit = True
             check_list_cover.save()
-        elif check_list_cover.later_submit is False:
+        else:
+            all_answers = models.CheckListAnswer.objects.all()
+            all_answers.update(later_answer=False)
+            true_answers = models.CheckListAnswer.objects.filter(
+                question__uuid__in=true_answer_question_uuids,
+                check_list_cover=check_list_cover,
+            )
+            true_answers.update(later_answer=True)
             check_list_cover.later_submit = True
             check_list_cover.save()
-        else:
-            pass
 
-        return types.CheckListResponse(ok=True)
+        return types.SubmitCheckListResponse(ok=True)
