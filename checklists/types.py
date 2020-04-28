@@ -4,11 +4,6 @@ from graphene_django.types import DjangoObjectType
 from . import models
 
 
-class CheckListCoverType(DjangoObjectType):
-    class Meta:
-        model = models.CheckListCover
-
-
 class CheckListQuestionType(DjangoObjectType):
     class Meta:
         model = models.CheckListQuestion
@@ -17,10 +12,6 @@ class CheckListQuestionType(DjangoObjectType):
 class CheckListAnswerType(DjangoObjectType):
     class Meta:
         model = models.CheckListAnswer
-
-
-class GetCheckListListReponse(graphene.ObjectType):
-    checkLists = graphene.List(CheckListAnswerType)
 
 
 class SubmitCheckListResponse(graphene.ObjectType):

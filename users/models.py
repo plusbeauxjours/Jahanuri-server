@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
 from core import models as core_models
+from checklists import models as check_list_models
 
 
 class User(AbstractUser):
@@ -23,7 +24,83 @@ class User(AbstractUser):
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
-    has_submited_check_list = models.BooleanField(default=False)
+    has_previous_check_list_submitted = models.BooleanField(default=False)
+    has_later_check_list_submitted = models.BooleanField(default=False)
     has_submited_application = models.BooleanField(default=False)
     has_paid = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)
+
+    def wood_before(self):
+        wood = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="wood", previous_answer=True
+        )
+        return wood.count()
+
+    def wood_after(self):
+        wood = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="wood", later_answer=True
+        )
+        return wood.count()
+
+    def fire_before(self):
+        fire = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="fire", previous_answer=True
+        )
+        return fire.count()
+
+    def fire_after(self):
+        fire = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="fire", later_answer=True
+        )
+        return fire.count()
+
+    def earth_before(self):
+        earth = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="earth", previous_answer=True
+        )
+        return earth.count()
+
+    def earth_after(self):
+        earth = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="earth", later_answer=True
+        )
+        return earth.count()
+
+    def metal_before(self):
+        metal = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="metal", previous_answer=True
+        )
+        return metal.count()
+
+    def metal_after(self):
+        metal = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="metal", later_answer=True
+        )
+        return metal.count()
+
+    def water_before(self):
+        water = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="water", previous_answer=True
+        )
+        return water.count()
+
+    def water_after(self):
+        water = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="water", later_answer=True
+        )
+        return water.count()
+
+    def sanghwa_before(self):
+        sanghwa = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="sanghwa", previous_answer=True
+        )
+        return sanghwa.count()
+
+    def sanghwa_after(self):
+        sanghwa = check_list_models.CheckListAnswer.objects.filter(
+            user=self, question__elements="sanghwa", later_answer=True
+        )
+        return sanghwa.count()
+
+    def __str__(self):
+        return self.username
