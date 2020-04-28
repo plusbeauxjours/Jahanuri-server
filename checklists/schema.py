@@ -3,9 +3,9 @@ from . import types, queries, mutations
 
 
 class Query(object):
-    get_check_list_answers = graphene.Field(
-        types.GetCheckListAnswersResponse,
-        resolver=queries.resolve_get_check_list_answers,
+    get_check_list_questions = graphene.Field(
+        types.GetCheckListQuestionsResponse,
+        resolver=queries.resolve_get_check_list_questions,
         required=True,
     )
 

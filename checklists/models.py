@@ -32,7 +32,9 @@ class CheckListQuestion(core_models.TimeStampedModel):
 class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    question = models.ForeignKey(CheckListQuestion, on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        CheckListQuestion, on_delete=models.CASCADE, related_name="question_set"
+    )
     previous_answer = models.BooleanField(default=False)
     later_answer = models.BooleanField(default=False)
 
