@@ -6,23 +6,23 @@ from core import models as core_models
 
 class CheckListQuestion(core_models.TimeStampedModel):
 
-    ELEMENTS_WOOD = "wood"
-    ELEMENTS_FIRE = "fire"
-    ELEMENTS_EARTH = "earth"
-    ELEMENTS_METAL = "metal"
-    ELEMENTS_WATER = "water"
-    ELEMENTS_SANGHWA = "sanghwa"
-    ELEMENTS_CHOICES = (
-        (ELEMENTS_WOOD, "Wood"),
-        (ELEMENTS_FIRE, "Fire"),
-        (ELEMENTS_EARTH, "Earth"),
-        (ELEMENTS_METAL, "Metal"),
-        (ELEMENTS_WATER, "Water"),
-        (ELEMENTS_SANGHWA, "Sanghwa"),
+    ELEMENT_WOOD = "wood"
+    ELEMENT_FIRE = "fire"
+    ELEMENT_EARTH = "earth"
+    ELEMENT_METAL = "metal"
+    ELEMENT_WATER = "water"
+    ELEMENT_SANGHWA = "sanghwa"
+    ELEMENT_CHOICES = (
+        (ELEMENT_WOOD, "Wood"),
+        (ELEMENT_FIRE, "Fire"),
+        (ELEMENT_EARTH, "Earth"),
+        (ELEMENT_METAL, "Metal"),
+        (ELEMENT_WATER, "Water"),
+        (ELEMENT_SANGHWA, "Sanghwa"),
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    element = models.CharField(choices=ELEMENTS_CHOICES, max_length=20, blank=True)
+    element = models.CharField(choices=ELEMENT_CHOICES, max_length=20, blank=True)
     question = models.CharField(max_length=5000)
 
     def __str__(self):
@@ -39,7 +39,7 @@ class CheckListAnswer(core_models.TimeStampedModel):
     later_answer = models.BooleanField(default=False)
 
     def element(self):
-        return self.question.elements
+        return self.question.element
 
     def is_changed(self):
         if self.previous_answer != None and self.later_answer != None:
