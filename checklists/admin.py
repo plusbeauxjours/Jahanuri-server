@@ -4,7 +4,7 @@ from . import models
 
 @admin.register(models.CheckListQuestion)
 class CheckListQuestionAdmin(admin.ModelAdmin):
-    list_display = ("elements", "question", "uuid")
+    list_display = ("element", "question", "uuid")
 
 
 @admin.register(models.CheckListAnswer)

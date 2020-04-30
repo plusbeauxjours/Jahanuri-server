@@ -22,7 +22,7 @@ class CheckListQuestion(core_models.TimeStampedModel):
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    elements = models.CharField(choices=ELEMENTS_CHOICES, max_length=20, blank=True)
+    element = models.CharField(choices=ELEMENTS_CHOICES, max_length=20, blank=True)
     question = models.CharField(max_length=5000)
 
     def __str__(self):
