@@ -16,7 +16,7 @@ def resolve_get_report_cover_list(self, info, **kwargs):
         report_covers = models.ReportCover.objects.filter(
             class_order__pk__in=class_order_id
         )
-        return types.GetReportCoverListResponse(reportCovers=report_covers)
+        return types.GetReportCoverListResponse(report=report_covers)
     else:
         return types.GetReportCoverListResponse(reportCovers=None)
 
@@ -27,12 +27,21 @@ def resolve_get_report_list(self, info, **kwargs):
     user_uuid = kwargs.get("user_uuid", "")
 
     if class_order_id != "":
-        reports = models.Report.objects.filter(
-            report_cover__class_order__pk__in=class_order_id
+        report_covers = models.ReportCover.objects.filter(
+            class_order__pk__in=class_order_id
         )
-        return types.GetReportListResponse(reports=reports)
+        return types.GetReportCoverListResponse(reportCovers=report_covers)
     elif user_uuid != "":
         reports = models.Report.objects.filter(report_cover__user__uuid=user_uuid)
         return types.GetReportListResponse(reports=reports)
     else:
         return types.GetReportListResponse(reports=None)
+
+
+@login_required
+def resolve_get_report_detail(self, info, **kwargs):
+    report_uuid = kwargs.get("report_uuid")
+    report = models.Report.objects.get(
+        uuid=report_uuid
+    )
+    return types.GetReportDetailResponse(report=report)

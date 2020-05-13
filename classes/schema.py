@@ -18,10 +18,13 @@ class Query(object):
         types.GetReportListResponse,
         resolver=queries.resolve_get_report_list,
         required=True,
-        args={
-            "class_order_id": graphene.String(),
-            "user_uuid": graphene.String(),
-        },
+        args={"class_order_id": graphene.String(), "user_uuid": graphene.String(),},
+    )
+    get_report_detail = graphene.Field(
+        types.GetReportDetailResponse,
+        resolver=queries.resolve_get_report_detail,
+        required=True,
+        args={"report_uuid": graphene.String()},
     )
 
 

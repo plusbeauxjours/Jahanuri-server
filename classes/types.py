@@ -55,6 +55,10 @@ class GetReportListResponse(graphene.ObjectType):
     reports = graphene.List(ReportType)
 
 
+class GetReportDetailResponse(graphene.ObjectType):
+    report = graphene.Field(ReportType)
+
+
 class CreateReportResponse(graphene.ObjectType):
     report = graphene.Field(ReportType)
 
