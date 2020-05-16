@@ -130,7 +130,7 @@ class RemoveReportCover(graphene.Mutation):
 
 class CreateReport(graphene.Mutation):
     class Arguments:
-        report_cover_uuid = graphene.String(required=True)
+        report_cover_uuid = graphene.String()
         saeng_sik = graphene.String()
         amino = graphene.String()
         sangi_so = graphene.String()
@@ -170,28 +170,54 @@ class CreateReport(graphene.Mutation):
         lecture = kwargs.get("lecture")
         etc = kwargs.get("etc")
         diary = kwargs.get("diary")
-        report_cover = models.ReportCover.objects.get(uuid=report_cover_uuid)
-        report = models.Report.objects.create(
-            report_cover=report_cover,
-            saeng_sik=saeng_sik,
-            amino=amino,
-            sangi_so=sangi_so,
-            jeun_hae_jil=jeun_hae_jil,
-            jeun_hae_jil_time=jeun_hae_jil_time,
-            meal=meal,
-            meal_check=meal_check,
-            sleeping=sleeping,
-            stool=stool,
-            hot_grain=hot_grain,
-            hot_water=hot_water,
-            strolling=strolling,
-            workout=workout,
-            lecture=lecture,
-            etc=etc,
-            diary=diary,
-        )
 
-        return types.CreateReportResponse(report=report)
+        try:
+            report_cover = models.ReportCover.objects.get(uuid=report_cover_uuid)
+            report = models.Report.objects.create(
+                report_cover=report_cover,
+                saeng_sik=saeng_sik,
+                amino=amino,
+                sangi_so=sangi_so,
+                jeun_hae_jil=jeun_hae_jil,
+                jeun_hae_jil_time=jeun_hae_jil_time,
+                meal=meal,
+                meal_check=meal_check,
+                sleeping=sleeping,
+                stool=stool,
+                hot_grain=hot_grain,
+                hot_water=hot_water,
+                strolling=strolling,
+                workout=workout,
+                lecture=lecture,
+                etc=etc,
+                diary=diary,
+            )
+            return types.CreateReportResponse(report=report)
+
+        except models.ReportCover.DoesNotExist:
+            report_cover = models.ReportCover.objects.create(
+                user=user, report_type="etc"
+            )
+            report = models.Report.objects.create(
+                report_cover=report_cover,
+                saeng_sik=saeng_sik,
+                amino=amino,
+                sangi_so=sangi_so,
+                jeun_hae_jil=jeun_hae_jil,
+                jeun_hae_jil_time=jeun_hae_jil_time,
+                meal=meal,
+                meal_check=meal_check,
+                sleeping=sleeping,
+                stool=stool,
+                hot_grain=hot_grain,
+                hot_water=hot_water,
+                strolling=strolling,
+                workout=workout,
+                lecture=lecture,
+                etc=etc,
+                diary=diary,
+            )
+            return types.CreateReportResponse(report=report)
 
 
 class UpdateReport(graphene.Mutation):

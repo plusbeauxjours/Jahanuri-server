@@ -24,19 +24,24 @@ class ReportCover(core_models.TimeStampedModel):
         ClassOrder, on_delete=models.PROTECT, blank=True, null=True
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="user_set"
+    )
     report_type = models.CharField(
         choices=REPORT_TYPE, max_length=200, default=BODY_STUDY
     )
 
     def __str__(self):
-        return (
-            str(self.class_order.order)
-            + " "
-            + self.user.last_name
-            + " "
-            + self.user.first_name
-        )
+        if self.class_order:
+            return (
+                str(self.class_order.order)
+                + " "
+                + self.user.last_name
+                + " "
+                + self.user.first_name
+            )
+        else:
+            return "Etc " + self.user.last_name + " " + self.user.first_name
 
 
 class Report(core_models.TimeStampedModel):
@@ -56,7 +61,7 @@ class Report(core_models.TimeStampedModel):
     amino = models.CharField(choices=WHEN, max_length=200, default=MORNING)
     sangi_so = models.CharField(choices=WHEN, max_length=200, default=MORNING)
     jeun_hae_jil = models.BooleanField(default=False)
-    jeun_hae_jil_time = models.TimeField()
+    jeun_hae_jil_time = models.TimeField(blank=True, null=True)
     meal = models.CharField(max_length=1000)
     meal_check = models.CharField(max_length=1000)
     sleeping = models.CharField(max_length=1000)
