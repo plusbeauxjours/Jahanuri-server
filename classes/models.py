@@ -75,10 +75,18 @@ class Report(core_models.TimeStampedModel):
     diary = models.CharField(max_length=5000)
 
     def __str__(self):
-        return (
-            str(self.report_cover.class_order)
-            + " "
-            + self.report_cover.user.last_name
-            + " "
-            + self.report_cover.user.first_name
-        )
+        if self.report_cover.report_type == "etc":
+            return (
+                "etc "
+                + self.report_cover.user.last_name
+                + " "
+                + self.report_cover.user.first_name
+            )
+        else:
+            return (
+                str(self.report_cover.report_type)
+                + " "
+                + self.report_cover.user.last_name
+                + " "
+                + self.report_cover.user.first_name
+            )

@@ -41,7 +41,8 @@ def resolve_get_report_list(self, info, **kwargs):
 @login_required
 def resolve_get_report_detail(self, info, **kwargs):
     report_uuid = kwargs.get("report_uuid")
-    report = models.Report.objects.get(
-        uuid=report_uuid
-    )
-    return types.GetReportDetailResponse(report=report)
+    try:
+        report = models.Report.objects.get(uuid=report_uuid)
+        return types.GetReportDetailResponse(report=report)
+    except models.Report.DoesNotExist:
+        return types.GetReportDetailResponse(report=None)
