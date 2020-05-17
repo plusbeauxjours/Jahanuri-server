@@ -147,6 +147,7 @@ class CreateReport(graphene.Mutation):
         lecture = graphene.String()
         etc = graphene.String()
         diary = graphene.String()
+        report_date = graphene.Date()
 
     Output = types.CreateReportResponse
 
@@ -170,10 +171,12 @@ class CreateReport(graphene.Mutation):
         lecture = kwargs.get("lecture")
         etc = kwargs.get("etc")
         diary = kwargs.get("diary")
+        report_date = kwargs.get("report_date")
 
         try:
             report_cover = models.ReportCover.objects.get(uuid=report_cover_uuid)
             report = models.Report.objects.create(
+                report_date=report_date,
                 report_cover=report_cover,
                 saeng_sik=saeng_sik,
                 amino=amino,
@@ -199,6 +202,7 @@ class CreateReport(graphene.Mutation):
                 user=user, report_type="etc"
             )
             report = models.Report.objects.create(
+                report_date=report_date,
                 report_cover=report_cover,
                 saeng_sik=saeng_sik,
                 amino=amino,
@@ -216,6 +220,7 @@ class CreateReport(graphene.Mutation):
                 lecture=lecture,
                 etc=etc,
                 diary=diary,
+                created_at=report_date,
             )
             return types.CreateReportResponse(report=report)
 

@@ -10,10 +10,13 @@ class UserType(DjangoObjectType):
 
     def resolve_report_cover_uuid(self, info):
         user = info.context.user
-        report_cover = class_models.ReportCover.objects.get(
-            user=user, report_type="body study"
-        )
-        return report_cover.uuid
+        try:
+            report_cover = class_models.ReportCover.objects.get(
+                user=user, report_type="body study"
+            )
+            return report_cover.uuid
+        except:
+            return
 
     class Meta:
         model = models.User
