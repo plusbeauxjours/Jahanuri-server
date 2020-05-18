@@ -131,11 +131,16 @@ class RemoveReportCover(graphene.Mutation):
 class CreateReport(graphene.Mutation):
     class Arguments:
         report_cover_uuid = graphene.String()
-        saeng_sik = graphene.String()
-        amino = graphene.String()
-        sangi_so = graphene.String()
+        saeng_sik_morning = graphene.String()
+        saeng_sik_noon = graphene.String()
+        saeng_sik_evening = graphene.String()
+        amino_morning = graphene.String()
+        amino_noon = graphene.String()
+        amino_evening = graphene.String()
+        sangi_so_morning = graphene.String()
+        sangi_so_noon = graphene.String()
+        sangi_so_evening = graphene.String()
         jeun_hae_jil = graphene.Boolean()
-        jeun_hae_jil_time = graphene.Time()
         meal = graphene.String()
         meal_check = graphene.String()
         sleeping = graphene.String()
@@ -155,11 +160,16 @@ class CreateReport(graphene.Mutation):
     def mutate(self, info, **kwargs):
         user = info.context.user
         report_cover_uuid = kwargs.get("report_cover_uuid")
-        saeng_sik = kwargs.get("saeng_sik")
-        amino = kwargs.get("amino")
-        sangi_so = kwargs.get("sangi_so")
+        saeng_sik_morning = kwargs.get("saeng_sik_morning")
+        saeng_sik_noon = kwargs.get("saeng_sik_noon")
+        saeng_sik_evening = kwargs.get("saeng_sik_evening")
+        amino_morning = kwargs.get("amino_morning")
+        amino_noon = kwargs.get("amino_noon")
+        amino_evening = kwargs.get("amino_evening")
+        sangi_so_morning = kwargs.get("sangi_so_morning")
+        sangi_so_noon = kwargs.get("sangi_so_noon")
+        sangi_so_evening = kwargs.get("sangi_so_evening")
         jeun_hae_jil = kwargs.get("jeun_hae_jil")
-        jeun_hae_jil_time = kwargs.get("jeun_hae_jil_time")
         meal = kwargs.get("meal")
         meal_check = kwargs.get("meal_check")
         sleeping = kwargs.get("sleeping")
@@ -178,11 +188,16 @@ class CreateReport(graphene.Mutation):
             report = models.Report.objects.create(
                 report_date=report_date,
                 report_cover=report_cover,
-                saeng_sik=saeng_sik,
-                amino=amino,
-                sangi_so=sangi_so,
+                saeng_sik_morning=saeng_sik_morning,
+                saeng_sik_noon=saeng_sik_noon,
+                saeng_sik_evening=saeng_sik_evening,
+                amino_morning=amino_morning,
+                amino_noon=amino_noon,
+                amino_evening=amino_evening,
+                sangi_so_morning=sangi_so_morning,
+                sangi_so_noon=sangi_so_noon,
+                sangi_so_evening=sangi_so_evening,
                 jeun_hae_jil=jeun_hae_jil,
-                jeun_hae_jil_time=jeun_hae_jil_time,
                 meal=meal,
                 meal_check=meal_check,
                 sleeping=sleeping,
@@ -204,11 +219,16 @@ class CreateReport(graphene.Mutation):
             report = models.Report.objects.create(
                 report_date=report_date,
                 report_cover=report_cover,
-                saeng_sik=saeng_sik,
-                amino=amino,
-                sangi_so=sangi_so,
+                saeng_sik_morning=saeng_sik_morning,
+                saeng_sik_noon=saeng_sik_noon,
+                saeng_sik_evening=saeng_sik_evening,
+                amino_morning=amino_morning,
+                amino_noon=amino_noon,
+                amino_evening=amino_evening,
+                sangi_so_morning=sangi_so_morning,
+                sangi_so_noon=sangi_so_noon,
+                sangi_so_evening=sangi_so_evening,
                 jeun_hae_jil=jeun_hae_jil,
-                jeun_hae_jil_time=jeun_hae_jil_time,
                 meal=meal,
                 meal_check=meal_check,
                 sleeping=sleeping,
@@ -228,11 +248,15 @@ class CreateReport(graphene.Mutation):
 class UpdateReport(graphene.Mutation):
     class Arguments:
         report_uuid = graphene.String(required=True)
-        saeng_sik = graphene.String()
-        amino = graphene.String()
-        sangi_so = graphene.String()
-        jeun_hae_jil = graphene.Boolean()
-        jeun_hae_jil_time = graphene.Time()
+        saeng_sik_morning = (saeng_sik_morning,)
+        saeng_sik_noon = (saeng_sik_noon,)
+        saeng_sik_evening = (saeng_sik_evening,)
+        amino_morning = (amino_morning,)
+        amino_noon = (amino_noon,)
+        amino_evening = (amino_evening,)
+        sangi_so_morning = (sangi_so_morning,)
+        sangi_so_noon = (sangi_so_noon,)
+        sangi_so_evening = (sangi_so_evening,)
         meal = graphene.String()
         meal_check = graphene.String()
         sleeping = graphene.String()
@@ -251,11 +275,16 @@ class UpdateReport(graphene.Mutation):
     def mutate(self, info, **kwargs):
         user = info.context.user
         report_uuid = kwargs.get("report_uuid", "")
-        saeng_sik = kwargs.get("saeng_sik", "")
-        amino = kwargs.get("amino", "")
-        sangi_so = kwargs.get("sangi_so", "")
+        saeng_sik_morning = kwargs.get("saeng_sik_morning", "")
+        saeng_sik_noon = kwargs.get("saeng_sik_noon", "")
+        saeng_sik_evening = kwargs.get("saeng_sik_evening", "")
+        amino_morning = kwargs.get("amino_morning", "")
+        amino_noon = kwargs.get("amino_noon", "")
+        amino_evening = kwargs.get("amino_evening", "")
+        sangi_so_morning = kwargs.get("sangi_so_morning", "")
+        sangi_so_noon = kwargs.get("sangi_so_noon", "")
+        sangi_so_evening = kwargs.get("sangi_so_evening", "")
         jeun_hae_jil = kwargs.get("jeun_hae_jil", False)
-        jeun_hae_jil_time = kwargs.get("jeun_hae_jil_time", "")
         meal = kwargs.get("meal", "")
         meal_check = kwargs.get("meal_check", "")
         sleeping = kwargs.get("sleeping", "")
@@ -269,16 +298,26 @@ class UpdateReport(graphene.Mutation):
         diary = kwargs.get("diary", "")
         report = models.Report.objects.get(uuid=report_uuid)
 
-        if saeng_sik != "":
-            report.saeng_sik = saeng_sik
-        if amino != "":
-            report.amino = amino
-        if sangi_so != "":
-            report.sangi_so = sangi_so
+        if saeng_sik_morning != "":
+            report.saeng_sik_morning = saeng_sik_morning
+        if saeng_sik_noon != "":
+            report.saeng_sik_noon = saeng_sik_noon
+        if saeng_sik_evening != "":
+            report.saeng_sik_evening = saeng_sik_evening
+        if amino_morning != "":
+            report.amino_morning = amino_morning
+        if amino_noon != "":
+            report.amino_noon = amino_noon
+        if amino_evening != "":
+            report.amino_evening = amino_evening
+        if sangi_so_morning != "":
+            report.sangi_so_morning = sangi_so_morning
+        if sangi_so_noon != "":
+            report.sangi_so_noon = sangi_so_noon
+        if sangi_so_evening != "":
+            report.sangi_so_evening = sangi_so_evening
         if jeun_hae_jil != "":
             report.jeun_hae_jil = jeun_hae_jil
-        if jeun_hae_jil_time != "":
-            report.jeun_hae_jil_time = jeun_hae_jil_time
         if meal != "":
             report.meal = meal
         if meal_check != "":
