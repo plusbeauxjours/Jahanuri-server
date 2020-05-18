@@ -57,7 +57,7 @@ class Report(core_models.TimeStampedModel):
     report_date = models.DateField()
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     report_cover = models.ForeignKey(ReportCover, on_delete=models.CASCADE)
-    saeng_sik_morning = models.CharField(choices=WHEN, max_length=200, default=MORNING)
+    saeng_sik_morning = models.CharField(max_length=200)
     saeng_sik_noon = models.CharField(max_length=200)
     saeng_sik_evening = models.CharField(max_length=200)
     amino_morning = models.CharField(max_length=200)

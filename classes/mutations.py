@@ -182,7 +182,7 @@ class CreateReport(graphene.Mutation):
         etc = kwargs.get("etc")
         diary = kwargs.get("diary")
         report_date = kwargs.get("report_date")
-
+        
         try:
             report_cover = models.ReportCover.objects.get(uuid=report_cover_uuid)
             report = models.Report.objects.create(
@@ -248,15 +248,15 @@ class CreateReport(graphene.Mutation):
 class UpdateReport(graphene.Mutation):
     class Arguments:
         report_uuid = graphene.String(required=True)
-        saeng_sik_morning =graphene.String()
-        saeng_sik_noon =graphene.String()
-        saeng_sik_evening =graphene.String()
-        amino_morning =graphene.String()
-        amino_noon =graphene.String()
-        amino_evening =graphene.String()
-        sangi_so_morning =graphene.String()
-        sangi_so_noon =graphene.String()
-        sangi_so_evening =graphene.String()
+        saeng_sik_morning = graphene.String()
+        saeng_sik_noon = graphene.String()
+        saeng_sik_evening = graphene.String()
+        amino_morning = graphene.String()
+        amino_noon = graphene.String()
+        amino_evening = graphene.String()
+        sangi_so_morning = graphene.String()
+        sangi_so_noon = graphene.String()
+        sangi_so_evening = graphene.String()
         meal = graphene.String()
         meal_check = graphene.String()
         sleeping = graphene.String()
