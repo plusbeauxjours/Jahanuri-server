@@ -19,4 +19,4 @@ class ReportCoverAdmin(admin.ModelAdmin):
 
 @admin.register(models.Report)
 class ReportAdmin(admin.ModelAdmin):
-    list_display = ("report_cover", "created_at", "uuid")
+    list_display = ("report_cover", "created_at", "report_date", "uuid")
