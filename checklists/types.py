@@ -15,7 +15,7 @@ class CheckListAnswerType(DjangoObjectType):
 
 
 class SubmitCheckListResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+    checkListQuestions = graphene.List(CheckListQuestionType)
 
 
 class CheckListSubmitResponse(graphene.ObjectType):

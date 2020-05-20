@@ -29,10 +29,12 @@ def resolve_get_report_list(self, info, **kwargs):
     if class_order_id != "":
         report_covers = models.ReportCover.objects.filter(
             class_order__pk__in=class_order_id
-        )
+        ).order_by("-report_date")
         return types.GetReportCoverListResponse(reportCovers=report_covers)
     elif user_uuid != "":
-        reports = models.Report.objects.filter(report_cover__user__uuid=user_uuid)
+        reports = models.Report.objects.filter(
+            report_cover__user__uuid=user_uuid
+        ).order_by("-report_date")
         return types.GetReportListResponse(reports=reports)
     else:
         return types.GetReportListResponse(reports=None)

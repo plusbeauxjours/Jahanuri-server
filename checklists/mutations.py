@@ -27,7 +27,7 @@ class SubmitCheckList(graphene.Mutation):
             true_answers.update(previous_answer=True)
             user.has_previous_check_list_submitted = True
             user.save()
-            return types.SubmitCheckListResponse(ok=True)
+            return types.SubmitCheckListResponse(checkListQuestions=checkListQuestions)
 
         else:
             all_answers = models.CheckListAnswer.objects.all()
@@ -38,4 +38,4 @@ class SubmitCheckList(graphene.Mutation):
             true_answers.update(later_answer=True)
             user.has_later_check_list_submitted = True
             user.save()
-            return types.SubmitCheckListResponse(ok=True)
+            return types.SubmitCheckListResponse(checkListQuestions=checkListQuestions)
