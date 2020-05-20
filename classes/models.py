@@ -8,6 +8,7 @@ class ClassOrder(core_models.TimeStampedModel):
     order = models.IntegerField(blank=True, null=True, unique=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
         return str(self.order)
@@ -21,7 +22,11 @@ class ReportCover(core_models.TimeStampedModel):
         (ETC, "Etc"),
     )
     class_order = models.ForeignKey(
-        ClassOrder, on_delete=models.PROTECT, blank=True, null=True
+        ClassOrder,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        related_name="class_order_set",
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
