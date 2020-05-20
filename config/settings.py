@@ -45,6 +45,7 @@ PROJECT_APPS = [
     "users.apps.UsersConfig",
     "classes.apps.ClassesConfig",
     "checklists.apps.ChecklistsConfig",
+    "feeds.apps.FeedsConfig",
 ]
 
 THIRD_PARTY_APPS = ["graphene_django"]
