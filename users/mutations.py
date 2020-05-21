@@ -33,7 +33,6 @@ class CreateUser(graphene.Mutation):
 
 class UpdateUser(graphene.Mutation):
     class Arguments:
-        bio = graphene.String()
         password = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -44,7 +43,6 @@ class UpdateUser(graphene.Mutation):
     @login_required
     def mutate(self, info, **kwargs):
         user = info.context.user
-        bio = kwargs.get("bio")
         first_name = kwargs.get("first_name", "")
         last_name = kwargs.get("last_name", "")
         password = kwargs.get("password", "")
@@ -56,8 +54,6 @@ class UpdateUser(graphene.Mutation):
             user.last_name = last_name
         if password != "":
             user.set_password(password)
-        if bio is not None:
-            user.bio = bio
         if user_img is not None:
             user.user_img = user_img
 

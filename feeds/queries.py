@@ -13,7 +13,7 @@ def resolve_get_feed_list(self, info):
 
         feeds = models.Feed.objects.filter(
             class_order__uuid=report_cover.class_order.uuid
-        )
+        ).order_by("-created_at")
         return types.GetFeedListResponse(feeds=feeds)
     except class_models.ReportCover.DoesNotExist:
         return types.GetFeedListResponse(feeds=None)

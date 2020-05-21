@@ -20,7 +20,6 @@ class User(AbstractUser):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     user_img = models.ImageField(upload_to="user_imgs/", null=True, blank=True)
-    bio = models.TextField(blank=True)
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
