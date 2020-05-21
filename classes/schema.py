@@ -12,11 +12,13 @@ class Query(object):
         types.GetReportCoverListResponse,
         resolver=queries.resolve_get_report_cover_list,
         required=True,
+        args={"class_order_id": graphene.String(),},
     )
     get_report_list = graphene.Field(
         types.GetReportListResponse,
         resolver=queries.resolve_get_report_list,
         required=True,
+        args={"class_order_id": graphene.String(), "user_uuid": graphene.String(),},
     )
     get_report_detail = graphene.Field(
         types.GetReportDetailResponse,
