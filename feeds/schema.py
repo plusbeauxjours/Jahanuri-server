@@ -8,6 +8,12 @@ class Query(object):
         resolver=queries.resolve_get_feed_list,
         required=True,
     )
+    get_feed_list_staff = graphene.Field(
+        types.GetFeedListStaffResponse,
+        resolver=queries.resolve_get_feed_list_staff,
+        required=True,
+        args={"class_order_uuid": graphene.String(required=True),},
+    )
 
 
 class Mutation(object):

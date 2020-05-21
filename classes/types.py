@@ -20,7 +20,7 @@ class ReportType(DjangoObjectType):
 
 
 class GetClassListReponse(graphene.ObjectType):
-    clasees = graphene.List(ClassOrderType)
+    classes = graphene.List(ClassOrderType)
 
 
 class CreateClassOrderResponse(graphene.ObjectType):

@@ -4,8 +4,8 @@ from graphql_jwt.decorators import login_required
 
 @login_required
 def resolve_get_class_list(self, info):
-    clasees = models.ClassOrder.objects.all()
-    return types.GetClassListReponse(clasees=clasees)
+    classes = models.ClassOrder.objects.all()
+    return types.GetClassListReponse(classes=classes)
 
 
 @login_required

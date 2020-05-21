@@ -4,7 +4,7 @@ from . import models
 
 @admin.register(models.ClassOrder)
 class ClassOrderAdmin(admin.ModelAdmin):
-    list_display = ("order", "start_date", "end_date")
+    list_display = ("order", "start_date", "end_date", "uuid")
 
 
 @admin.register(models.ReportCover)

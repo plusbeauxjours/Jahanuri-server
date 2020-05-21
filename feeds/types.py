@@ -12,6 +12,10 @@ class GetFeedListResponse(graphene.ObjectType):
     feeds = graphene.List(FeedType)
 
 
+class GetFeedListStaffResponse(graphene.ObjectType):
+    feeds = graphene.List(FeedType)
+
+
 class CreateFeedReponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
