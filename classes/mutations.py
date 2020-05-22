@@ -140,19 +140,22 @@ class CreateReport(graphene.Mutation):
         sangi_so_morning = graphene.String()
         sangi_so_noon = graphene.String()
         sangi_so_evening = graphene.String()
-        jeun_hae_jil = graphene.Boolean()
-        meal = graphene.String()
-        meal_check = graphene.String()
-        sleeping = graphene.String()
-        stool = graphene.String()
-        hot_grain = graphene.String()
-        hot_water = graphene.String()
-        strolling = graphene.String()
-        workout = graphene.String()
-        lecture = graphene.String()
-        etc = graphene.String()
-        diary = graphene.String()
-        report_date = graphene.Date()
+        jeun_hae_jil_a = graphene.Boolean()
+        jeun_hae_jil_b = graphene.Boolean()
+        jeun_hae_jil_c = graphene.Boolean()
+        jeun_hae_jil_d = graphene.Boolean()
+        meal = graphene.String(required=True)
+        meal_check = graphene.String(required=True)
+        sleeping = graphene.String(required=True)
+        stool = graphene.String(required=True)
+        hot_grain = graphene.String(required=True)
+        hot_water = graphene.String(required=True)
+        strolling = graphene.String(required=True)
+        workout = graphene.String(required=True)
+        lecture = graphene.String(required=True)
+        etc = graphene.String(required=True)
+        diary = graphene.String(required=True)
+        report_date = graphene.types.datetime.DateTime(required=True)
 
     Output = types.CreateReportResponse
 
@@ -169,7 +172,10 @@ class CreateReport(graphene.Mutation):
         sangi_so_morning = kwargs.get("sangi_so_morning")
         sangi_so_noon = kwargs.get("sangi_so_noon")
         sangi_so_evening = kwargs.get("sangi_so_evening")
-        jeun_hae_jil = kwargs.get("jeun_hae_jil")
+        jeun_hae_jil_a = kwargs.get("jeun_hae_jil_a")
+        jeun_hae_jil_b = kwargs.get("jeun_hae_jil_b")
+        jeun_hae_jil_c = kwargs.get("jeun_hae_jil_c")
+        jeun_hae_jil_d = kwargs.get("jeun_hae_jil_d")
         meal = kwargs.get("meal")
         meal_check = kwargs.get("meal_check")
         sleeping = kwargs.get("sleeping")
@@ -197,7 +203,10 @@ class CreateReport(graphene.Mutation):
                 sangi_so_morning=sangi_so_morning,
                 sangi_so_noon=sangi_so_noon,
                 sangi_so_evening=sangi_so_evening,
-                jeun_hae_jil=jeun_hae_jil,
+                jeun_hae_jil_a=jeun_hae_jil_a,
+                jeun_hae_jil_b=jeun_hae_jil_b,
+                jeun_hae_jil_c=jeun_hae_jil_c,
+                jeun_hae_jil_d=jeun_hae_jil_d,
                 meal=meal,
                 meal_check=meal_check,
                 sleeping=sleeping,
@@ -228,7 +237,10 @@ class CreateReport(graphene.Mutation):
                 sangi_so_morning=sangi_so_morning,
                 sangi_so_noon=sangi_so_noon,
                 sangi_so_evening=sangi_so_evening,
-                jeun_hae_jil=jeun_hae_jil,
+                jeun_hae_jil_a=jeun_hae_jil_a,
+                jeun_hae_jil_b=jeun_hae_jil_b,
+                jeun_hae_jil_c=jeun_hae_jil_c,
+                jeun_hae_jil_d=jeun_hae_jil_d,
                 meal=meal,
                 meal_check=meal_check,
                 sleeping=sleeping,
@@ -240,14 +252,13 @@ class CreateReport(graphene.Mutation):
                 lecture=lecture,
                 etc=etc,
                 diary=diary,
-                created_at=report_date,
             )
             return types.CreateReportResponse(report=report)
 
 
 class UpdateReport(graphene.Mutation):
     class Arguments:
-        report_uuid = graphene.String(required=True)
+        report_cover_uuid = graphene.String()
         saeng_sik_morning = graphene.String()
         saeng_sik_noon = graphene.String()
         saeng_sik_evening = graphene.String()
@@ -257,17 +268,22 @@ class UpdateReport(graphene.Mutation):
         sangi_so_morning = graphene.String()
         sangi_so_noon = graphene.String()
         sangi_so_evening = graphene.String()
-        meal = graphene.String()
-        meal_check = graphene.String()
-        sleeping = graphene.String()
-        stool = graphene.String()
-        hot_grain = graphene.String()
-        hot_water = graphene.String()
-        strolling = graphene.String()
-        workout = graphene.String()
-        lecture = graphene.String()
-        etc = graphene.String()
-        diary = graphene.String()
+        jeun_hae_jil_a = graphene.Boolean()
+        jeun_hae_jil_b = graphene.Boolean()
+        jeun_hae_jil_c = graphene.Boolean()
+        jeun_hae_jil_d = graphene.Boolean()
+        meal = graphene.String(required=True)
+        meal_check = graphene.String(required=True)
+        sleeping = graphene.String(required=True)
+        stool = graphene.String(required=True)
+        hot_grain = graphene.String(required=True)
+        hot_water = graphene.String(required=True)
+        strolling = graphene.String(required=True)
+        workout = graphene.String(required=True)
+        lecture = graphene.String(required=True)
+        etc = graphene.String(required=True)
+        diary = graphene.String(required=True)
+        report_date = graphene.Date(required=True)
 
     Output = types.UpdateReportResponse
 
@@ -284,7 +300,10 @@ class UpdateReport(graphene.Mutation):
         sangi_so_morning = kwargs.get("sangi_so_morning", "")
         sangi_so_noon = kwargs.get("sangi_so_noon", "")
         sangi_so_evening = kwargs.get("sangi_so_evening", "")
-        jeun_hae_jil = kwargs.get("jeun_hae_jil", False)
+        jeun_hae_jil_a = kwargs.get("jeun_hae_jil_a", False)
+        jeun_hae_jil_b = kwargs.get("jeun_hae_jil_b", False)
+        jeun_hae_jil_c = kwargs.get("jeun_hae_jil_c", False)
+        jeun_hae_jil_d = kwargs.get("jeun_hae_jil_d", False)
         meal = kwargs.get("meal", "")
         meal_check = kwargs.get("meal_check", "")
         sleeping = kwargs.get("sleeping", "")
@@ -296,8 +315,11 @@ class UpdateReport(graphene.Mutation):
         lecture = kwargs.get("lecture", "")
         etc = kwargs.get("etc", "")
         diary = kwargs.get("diary", "")
+        report_date = kwargs.get("report_date", "")
         report = models.Report.objects.get(uuid=report_uuid)
 
+        if report_date != "":
+            report.report_date = report_date
         if saeng_sik_morning != "":
             report.saeng_sik_morning = saeng_sik_morning
         if saeng_sik_noon != "":
@@ -316,8 +338,14 @@ class UpdateReport(graphene.Mutation):
             report.sangi_so_noon = sangi_so_noon
         if sangi_so_evening != "":
             report.sangi_so_evening = sangi_so_evening
-        if jeun_hae_jil != "":
-            report.jeun_hae_jil = jeun_hae_jil
+        if jeun_hae_jil_a != "":
+            report.jeun_hae_jil_a = jeun_hae_jil_a
+        if jeun_hae_jil_b != "":
+            report.jeun_hae_jil_b = jeun_hae_jil_b
+        if jeun_hae_jil_c != "":
+            report.jeun_hae_jil_c = jeun_hae_jil_c
+        if jeun_hae_jil_d != "":
+            report.jeun_hae_jil_d = jeun_hae_jil_d
         if meal != "":
             report.meal = meal
         if meal_check != "":

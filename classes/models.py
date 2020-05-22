@@ -71,7 +71,10 @@ class Report(core_models.TimeStampedModel):
     sangi_so_morning = models.CharField(max_length=200, blank=True, null=True)
     sangi_so_noon = models.CharField(max_length=200, blank=True, null=True)
     sangi_so_evening = models.CharField(max_length=200, blank=True, null=True)
-    jeun_hae_jil = models.BooleanField(default=False)
+    jeun_hae_jil_a = models.BooleanField(default=False)
+    jeun_hae_jil_b = models.BooleanField(default=False)
+    jeun_hae_jil_c = models.BooleanField(default=False)
+    jeun_hae_jil_d = models.BooleanField(default=False)
     meal = models.CharField(max_length=1000)
     meal_check = models.CharField(max_length=1000)
     sleeping = models.CharField(max_length=1000)
@@ -83,6 +86,15 @@ class Report(core_models.TimeStampedModel):
     lecture = models.CharField(max_length=1000)
     etc = models.CharField(max_length=1000)
     diary = models.CharField(max_length=5000)
+
+    def jeun_hae_jil(self):
+        jeun_hae_jil = (
+            self.jeun_hae_jil_a
+            + self.jeun_hae_jil_b
+            + self.jeun_hae_jil_c
+            + self.jeun_hae_jil_d
+        )
+        return jeun_hae_jil.count()
 
     def __str__(self):
         if self.report_cover.report_type == "etc":
