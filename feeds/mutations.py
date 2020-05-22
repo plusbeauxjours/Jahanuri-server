@@ -8,21 +8,21 @@ from . import types, models
 
 class CreateFeed(graphene.Mutation):
     class Arguments:
-        order_uuid = graphene.String(required=True)
+        class_order_uuid = graphene.String(required=True)
         text = graphene.String(required=True)
 
     Output = types.CreateFeedReponse
 
     def mutate(self, info, **kwargs):
         user = info.context.user
-        order_uuid = kwargs.get("order_uuid")
+        class_order_uuid = kwargs.get("class_order_uuid")
         text = kwargs.get("text")
-        class_order = class_models.ClassOrder.objects.get(uuid=order_uuid)
-        new_feed = models.Feeds.objects.createuser(
+        class_order = class_models.ClassOrder.objects.get(uuid=class_order_uuid)
+        new_feed = models.Feed.objects.create(
             user=user, text=text, class_order=class_order
         )
 
-        return types.CreateFeedReponse(ok=True)
+        return types.CreateFeedReponse(feed=new_feed)
 
 
 class RemoveFeed(graphene.Mutation):
@@ -36,4 +36,4 @@ class RemoveFeed(graphene.Mutation):
         feed = models.Feed.objects.get(uuid=feed_uuid)
         feed.delete()
 
-        return types.RemoveFeedReponse(ok=True)
+        return types.RemoveFeedReponse(uuid=feed_uuid)

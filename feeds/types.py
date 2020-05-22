@@ -17,8 +17,8 @@ class GetFeedListStaffResponse(graphene.ObjectType):
 
 
 class CreateFeedReponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+    feed = graphene.Field(FeedType)
 
 
 class RemoveFeedReponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+    uuid = graphene.String()

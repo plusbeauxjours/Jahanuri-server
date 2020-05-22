@@ -4,4 +4,4 @@ from . import models
 
 @admin.register(models.Feed)
 class FeedAdmin(admin.ModelAdmin):
-    list_display = ("class_order", "text")
+    list_display = ("class_order", "text", "uuid")
