@@ -18,6 +18,10 @@ class SubmitCheckListResponse(graphene.ObjectType):
     checkListQuestions = graphene.List(CheckListQuestionType)
 
 
+class SubmitHabitCheckListResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+
+
 class CheckListSubmitResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 

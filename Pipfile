@@ -12,6 +12,7 @@ graphene-django = "*"
 pillow = "*"
 graphene-file-upload = "*"
 django-graphql-jwt = "*"
+django-multiselectfield = "*"
 
 [requires]
 python_version = "3.7"

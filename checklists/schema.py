@@ -12,3 +12,4 @@ class Query(object):
 
 class Mutation(object):
     submit_check_list = mutations.SubmitCheckList.Field(required=True)
+    submit_habit_check_list = mutations.SubmitHabitCheckList.Field(required=True)

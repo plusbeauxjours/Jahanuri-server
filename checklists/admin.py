@@ -16,3 +16,13 @@ class CheckListAnswerAdmin(admin.ModelAdmin):
         "later_answer",
         "is_changed",
     )
+
+
+@admin.register(models.HabitCheckList)
+class HabitCheckListAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "job",
+        "wakeup_time",
+        "wakeup_long",
+    )
