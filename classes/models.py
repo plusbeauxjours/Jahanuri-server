@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from users import models as user_models
 from core import models as core_models
+from multiselectfield import MultiSelectField
 
 
 class ClassOrder(core_models.TimeStampedModel):
@@ -136,9 +137,31 @@ class Application(core_models.TimeStampedModel):
         (GENDER_FEMALE, "Female"),
         (GENDER_OTHER, "Other"),
     )
+    APPROACH_A = "APPROACH_A"
+    APPROACH_B = "APPROACH_B"
+    APPROACH_C = "APPROACH_C"
+    APPROACH_D = "APPROACH_D"
+    APPROACH_E = "APPROACH_E"
+    APPROACH_F = "APPROACH_F"
+    APPROACH_CHOICES = (
+        (APPROACH_A, "지인 소개"),
+        (APPROACH_B, "카페, 블로그"),
+        (APPROACH_C, "페이스북, 트위터"),
+        (APPROACH_D, "책 <치유본능>"),
+        (APPROACH_E, "책 <짠맛의 힘>"),
+        (APPROACH_F, "홈페이지(자하누리, 직관의 몸공부)"),
+    )
     user = models.OneToOneField("users.User", on_delete=models.CASCADE)
-    birth_date = models.DateField()
+    first_name = models.CharField(max_length=2000)
+    last_name = models.CharField(max_length=2000)
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )
-    job = models.CharField(max_length=200)
+    birth_date = models.DateField()
+    address = models.CharField(max_length=2000)
+    job = models.CharField(max_length=500)
+    phone_number = models.CharField(max_length=500)
+    email_address = models.CharField(max_length=500)
+    approach = MultiSelectField(choices=APPROACH_CHOICES, null=True, blank=True)
+    approach_etc = models.CharField(max_length=2000, null=True, blank=True)
+    confirm = models.BooleanField(default=False)
