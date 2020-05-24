@@ -112,3 +112,33 @@ class Report(core_models.TimeStampedModel):
                 + " "
                 + self.report_cover.user.first_name
             )
+
+
+class Survey(core_models.TimeStampedModel):
+    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    has_married = models.BooleanField(default=False)
+    has_married_etc = models.CharField(max_length=2000, null=True, blank=True)
+    has_childbirth = models.BooleanField(default=False)
+    has_childbirth_etc = models.CharField(max_length=2000, null=True, blank=True)
+    how_many_child = models.CharField(max_length=2000, null=True, blank=True)
+    status = models.CharField(max_length=2000, null=True, blank=True)
+    change = models.CharField(max_length=2000, null=True, blank=True)
+    agree_personal_information = models.BooleanField(default=False)
+    confirm = models.BooleanField(default=False)
+
+
+class Application(core_models.TimeStampedModel):
+    GENDER_MALE = "GENDER_MALE"
+    GENDER_FEMALE = "GENDER_FEMALE"
+    GENDER_OTHER = "GENDER_OTHER"
+    GENDER_CHOICES = (
+        (GENDER_MALE, "Male"),
+        (GENDER_FEMALE, "Female"),
+        (GENDER_OTHER, "Other"),
+    )
+    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    birth_date = models.DateField()
+    gender = models.CharField(
+        choices=GENDER_CHOICES, max_length=20, null=True, blank=True
+    )
+    job = models.CharField(max_length=200)

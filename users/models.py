@@ -27,6 +27,7 @@ class User(AbstractUser):
     )
     has_previous_check_list_submitted = models.BooleanField(default=False)
     has_later_check_list_submitted = models.BooleanField(default=False)
+    has_habit_check_list_submitted = models.BooleanField(default=False)
     has_submited_application = models.BooleanField(default=False)
     has_paid = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)

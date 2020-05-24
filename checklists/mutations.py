@@ -5,7 +5,6 @@ from . import types, models
 
 class SubmitHabitCheckList(graphene.Mutation):
     class Arguments:
-        user_uuid = graphene.String(required=True)
         job = graphene.String(required=True)
         wakeup_time = graphene.String(required=True)
         wakeup_long = graphene.String(required=True)
@@ -44,7 +43,7 @@ class SubmitHabitCheckList(graphene.Mutation):
 
     @login_required
     def mutate(self, info, **kwargs):
-        user_uuid = kwargs.get("user_uuid")
+        user = info.context.user
         job = kwargs.get("job")
         wakeup_time = kwargs.get("wakeup_time")
         wakeup_long = kwargs.get("wakeup_long")
@@ -79,46 +78,45 @@ class SubmitHabitCheckList(graphene.Mutation):
         good_thing = kwargs.get("good_thing")
         bad_thing = kwargs.get("bad_thing")
 
-        @login_required
-        def mutate(self, info, **kwargs):
-            user = info.context.user
-            models.HabitCheckList.objects.create(
-                user=user,
-                job=job,
-                wakeup_time=wakeup_time,
-                wakeup_long=wakeup_long,
-                wakeup_condition=wakeup_condition,
-                wakeup_condition_etc=wakeup_condition_etc,
-                wakeup_first_thing=wakeup_first_thing,
-                wakeup_first_thing_etc=wakeup_first_thing_etc,
-                meal=meal,
-                meal_during=meal_during,
-                meal_during_etc=meal_during_etc,
-                meal_with_water=meal_with_water,
-                meal_with_snack=meal_with_snack,
-                meal_with_night_food=meal_with_night_food,
-                after_lunch=after_lunch,
-                after_lunch_etc=after_lunch_etc,
-                saying=saying,
-                saying_etc=saying_etc,
-                saying_repeat=saying_repeat,
-                walking=walking,
-                walking_etc=walking_etc,
-                posture=posture,
-                posture_etc=posture_etc,
-                posture_detail=posture_detail,
-                posture_detail_etc=posture_detail_etc,
-                body_heat=body_heat,
-                body_heat_etc=body_heat_etc,
-                exercise=exercise,
-                sleeping=sleeping,
-                sleeping_etc=sleeping_etc,
-                before_sleeping=before_sleeping,
-                before_sleeping_etc=before_sleeping_etc,
-                good_thing=good_thing,
-                bad_thing=bad_thing,
-            )
-            return types.SubmitHabitCheckListResponse(ok=True)
+        habitCheckList = models.HabitCheckList.objects.create(
+            user=user,
+            job=job,
+            wakeup_time=wakeup_time,
+            wakeup_long=wakeup_long,
+            wakeup_condition=wakeup_condition,
+            wakeup_condition_etc=wakeup_condition_etc,
+            wakeup_first_thing=wakeup_first_thing,
+            wakeup_first_thing_etc=wakeup_first_thing_etc,
+            meal=meal,
+            meal_during=meal_during,
+            meal_during_etc=meal_during_etc,
+            meal_with_water=meal_with_water,
+            meal_with_snack=meal_with_snack,
+            meal_with_night_food=meal_with_night_food,
+            after_lunch=after_lunch,
+            after_lunch_etc=after_lunch_etc,
+            saying=saying,
+            saying_etc=saying_etc,
+            saying_repeat=saying_repeat,
+            walking=walking,
+            walking_etc=walking_etc,
+            posture=posture,
+            posture_etc=posture_etc,
+            posture_detail=posture_detail,
+            posture_detail_etc=posture_detail_etc,
+            body_heat=body_heat,
+            body_heat_etc=body_heat_etc,
+            exercise=exercise,
+            sleeping=sleeping,
+            sleeping_etc=sleeping_etc,
+            before_sleeping=before_sleeping,
+            before_sleeping_etc=before_sleeping_etc,
+            good_thing=good_thing,
+            bad_thing=bad_thing,
+        )
+        user.has_habit_check_list_submitted = True
+        user.save()
+        return types.SubmitHabitCheckListResponse(ok=True)
 
 
 class SubmitCheckList(graphene.Mutation):

@@ -22,7 +22,4 @@ class CheckListAnswerAdmin(admin.ModelAdmin):
 class HabitCheckListAdmin(admin.ModelAdmin):
     list_display = (
         "user",
-        "job",
-        "wakeup_time",
-        "wakeup_long",
     )
