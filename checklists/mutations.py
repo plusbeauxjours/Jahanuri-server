@@ -114,7 +114,7 @@ class SubmitHabitCheckList(graphene.Mutation):
             good_thing=good_thing,
             bad_thing=bad_thing,
         )
-        user.has_habit_check_list_submitted = True
+        user.has_submitted_habit_check_list = True
         user.save()
         return types.SubmitHabitCheckListResponse(ok=True)
 
@@ -141,7 +141,7 @@ class SubmitCheckList(graphene.Mutation):
                 question__uuid__in=true_answer_question_uuids, user=user,
             )
             true_answers.update(previous_answer=True)
-            user.has_previous_check_list_submitted = True
+            user.has_submitted_previous_check_list = True
             user.save()
             checkListQuestions = models.CheckListQuestion.objects.all()
             return types.SubmitCheckListResponse(checkListQuestions=checkListQuestions)
@@ -153,7 +153,7 @@ class SubmitCheckList(graphene.Mutation):
                 question__uuid__in=true_answer_question_uuids, user=user,
             )
             true_answers.update(later_answer=True)
-            user.has_later_check_list_submitted = True
+            user.has_submitted_later_check_list = True
             user.save()
             checkListQuestions = models.CheckListQuestion.objects.all()
             return types.SubmitCheckListResponse(checkListQuestions=checkListQuestions)

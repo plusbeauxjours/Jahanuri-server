@@ -25,3 +25,8 @@ class ReportAdmin(admin.ModelAdmin):
 @admin.register(models.Survey)
 class SurveyAdmin(admin.ModelAdmin):
     list_display = ("user", "agree_personal_information", "confirm")
+
+
+@admin.register(models.Application)
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ("user", "gender", "birth_date", "job", "phone_number", "confirm")

@@ -25,12 +25,14 @@ class User(AbstractUser):
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
-    has_previous_check_list_submitted = models.BooleanField(default=False)
-    has_later_check_list_submitted = models.BooleanField(default=False)
-    has_habit_check_list_submitted = models.BooleanField(default=False)
-    has_submited_application = models.BooleanField(default=False)
+    has_submitted_previous_check_list = models.BooleanField(default=False)
+    has_submitted_later_check_list = models.BooleanField(default=False)
+    has_submitted_habit_check_list = models.BooleanField(default=False)
+    has_submitted_application = models.BooleanField(default=False)
+    has_submitted_survey = models.BooleanField(default=False)
     has_paid = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)
+    has_apple_account = models.BooleanField(default=False)
 
     def wood_before(self):
         wood = check_list_models.CheckListAnswer.objects.filter(
