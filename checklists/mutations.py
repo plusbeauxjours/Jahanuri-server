@@ -23,6 +23,22 @@ class SubmitHabitCheckList(graphene.Mutation):
         after_lunch_etc = graphene.String()
         saying = graphene.List(graphene.String)
         saying_etc = graphene.String()
+        saying_repeat = graphene.String()
+        walking = graphene.List(graphene.String)
+        walking_etc = graphene.String()
+        posture = graphene.List(graphene.String)
+        posture_etc = graphene.String()
+        posture_detail = graphene.List(graphene.String)
+        posture_detail_etc = graphene.String()
+        body_heat = graphene.List(graphene.String)
+        body_heat_etc = graphene.String()
+        exercise = graphene.String()
+        sleeping = graphene.List(graphene.String)
+        sleeping_etc = graphene.String()
+        before_sleeping = graphene.List(graphene.String)
+        before_sleeping_etc = graphene.String()
+        good_thing = graphene.String()
+        bad_thing = graphene.String()
 
     Output = types.SubmitHabitCheckListResponse
 
@@ -46,37 +62,63 @@ class SubmitHabitCheckList(graphene.Mutation):
         after_lunch_etc = kwargs.get("after_lunch_etc")
         saying = kwargs.get("saying")
         saying_etc = kwargs.get("saying_etc")
-        # @login_required
-        # def mutate(self, info, **kwargs):
-        #     user = info.context.user
-        #     models.HabitCheckList.objects.create(
-        #         user=user,
-        #         job="백수",
-        #         wakeup_time="아침 두시",
-        #         wakeup_long="3시간",
-        #         wakeup_condition=["개운하다", "머리가 아프다"],
-        #         wakeup_condition_etc="없엉",
-        #         wakeup_first_thing="찬물 혹은 찬음료를 마신다",
-        #         wakeup_first_thing_etc="없지용",
-        #         meal="굶었엉",
-        #         meal_during=["대화를 많이 하는 편이다", "먹는 것에 집중하는 편이다", "TV, 스마트폰 등을 보면서 먹는다"],
-        #         meal_during_etc="안행",
-        #         meal_with_water="안한다",
-        #         meal_with_snack="안한다",
-        #         meal_with_night_food="안한다",
-        #         after_lunch=[
-        #             "스마트폰을 본다",
-        #             "밖에 나가 걷거나 산책을 한다",
-        #             "담배를 핀다",
-        #             "커피 등 후식을 즐긴다",
-        #             "수다를 즐긴다",
-        #             "잠이 쏟아진다",
-        #         ],
-        #         after_lunch_etc="없엉",
-        #         saying=["말의 속도가 빠르다", "듣는 것보다 말하는 것에 더 익숙하다", "상대방의 말을 잘 듣는 편이다"],
-        #         saying_etc="없엉",
-        #     )
-        return types.SubmitHabitCheckListResponse(ok=True)
+        saying_repeat = kwargs.get("saying_repeat")
+        walking = kwargs.get("walking")
+        walking_etc = kwargs.get("walking_etc")
+        posture = kwargs.get("posture")
+        posture_etc = kwargs.get("posture_etc")
+        posture_detail = kwargs.get("posture_detail")
+        posture_detail_etc = kwargs.get("posture_detail_etc")
+        body_heat = kwargs.get("body_heat")
+        body_heat_etc = kwargs.get("body_heat_etc")
+        exercise = kwargs.get("exercise")
+        sleeping = kwargs.get("sleeping")
+        sleeping_etc = kwargs.get("sleeping_etc")
+        before_sleeping = kwargs.get("before_sleeping")
+        before_sleeping_etc = kwargs.get("before_sleeping_etc")
+        good_thing = kwargs.get("good_thing")
+        bad_thing = kwargs.get("bad_thing")
+
+        @login_required
+        def mutate(self, info, **kwargs):
+            user = info.context.user
+            models.HabitCheckList.objects.create(
+                user=user,
+                job=job,
+                wakeup_time=wakeup_time,
+                wakeup_long=wakeup_long,
+                wakeup_condition=wakeup_condition,
+                wakeup_condition_etc=wakeup_condition_etc,
+                wakeup_first_thing=wakeup_first_thing,
+                wakeup_first_thing_etc=wakeup_first_thing_etc,
+                meal=meal,
+                meal_during=meal_during,
+                meal_during_etc=meal_during_etc,
+                meal_with_water=meal_with_water,
+                meal_with_snack=meal_with_snack,
+                meal_with_night_food=meal_with_night_food,
+                after_lunch=after_lunch,
+                after_lunch_etc=after_lunch_etc,
+                saying=saying,
+                saying_etc=saying_etc,
+                saying_repeat=saying_repeat,
+                walking=walking,
+                walking_etc=walking_etc,
+                posture=posture,
+                posture_etc=posture_etc,
+                posture_detail=posture_detail,
+                posture_detail_etc=posture_detail_etc,
+                body_heat=body_heat,
+                body_heat_etc=body_heat_etc,
+                exercise=exercise,
+                sleeping=sleeping,
+                sleeping_etc=sleeping_etc,
+                before_sleeping=before_sleeping,
+                before_sleeping_etc=before_sleeping_etc,
+                good_thing=good_thing,
+                bad_thing=bad_thing,
+            )
+            return types.SubmitHabitCheckListResponse(ok=True)
 
 
 class SubmitCheckList(graphene.Mutation):

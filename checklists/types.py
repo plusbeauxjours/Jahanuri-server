@@ -14,6 +14,12 @@ class CheckListAnswerType(DjangoObjectType):
         model = models.CheckListAnswer
 
 
+class HabitCheckListType(DjangoObjectType):
+    class Meta:
+        model = models.HabitCheckList
+
+
+
 class SubmitCheckListResponse(graphene.ObjectType):
     checkListQuestions = graphene.List(CheckListQuestionType)
 
@@ -28,4 +34,3 @@ class CheckListSubmitResponse(graphene.ObjectType):
 
 class GetCheckListQuestionsResponse(graphene.ObjectType):
     checkListQuestions = graphene.List(CheckListQuestionType)
-
