@@ -269,15 +269,9 @@ class HabitCheckList(core_models.TimeStampedModel):
     meal = models.CharField(max_length=3000, null=True, blank=True)
     meal_during = MultiSelectField(choices=MEAL_DURING_CHOICES, null=True, blank=True)
     meal_during_etc = models.CharField(max_length=2000, null=True, blank=True)
-    meal_with_water = models.CharField(
-        choices=DEGREE_CHOICES, max_length=300, null=True, blank=True
-    )
-    meal_with_snack = models.CharField(
-        choices=DEGREE_CHOICES, max_length=300, null=True, blank=True
-    )
-    meal_with_night_food = models.CharField(
-        choices=DEGREE_CHOICES, max_length=300, null=True, blank=True
-    )
+    meal_with_water = models.CharField(choices=DEGREE_CHOICES, max_length=300)
+    meal_with_snack = models.CharField(choices=DEGREE_CHOICES, max_length=300)
+    meal_with_night_food = models.CharField(choices=DEGREE_CHOICES, max_length=300)
     after_lunch = MultiSelectField(choices=AFTER_LUNCH_CHOICES, null=True, blank=True)
     after_lunch_etc = models.CharField(max_length=2000, null=True, blank=True)
     saying = MultiSelectField(choices=SAYING_CHOICES, null=True, blank=True)
