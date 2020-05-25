@@ -75,12 +75,12 @@ class HabitCheckList(core_models.TimeStampedModel):
     WAKEUP_FIRST_THING_E = "WAKEUP_FIRST_THING_E"
     WAKEUP_FIRST_THING_F = "WAKEUP_FIRST_THING_F"
     WAKEUP_FIRST_THING_CHOICES = (
-        (WAKEUP_CONDITION_A, "찬물 혹은 찬음료를 마신다"),
-        (WAKEUP_CONDITION_B, "뜨거운 물 혹은 차를 마신다"),
-        (WAKEUP_CONDITION_C, "가벼운 스트레칭"),
-        (WAKEUP_CONDITION_D, "양치, 세수, 샤워"),
-        (WAKEUP_CONDITION_E, "스마트폰"),
-        (WAKEUP_CONDITION_F, "잡지, 신문"),
+        (WAKEUP_FIRST_THING_A, "찬물 혹은 찬음료를 마신다"),
+        (WAKEUP_FIRST_THING_B, "뜨거운 물 혹은 차를 마신다"),
+        (WAKEUP_FIRST_THING_C, "가벼운 스트레칭"),
+        (WAKEUP_FIRST_THING_D, "양치, 세수, 샤워"),
+        (WAKEUP_FIRST_THING_E, "스마트폰"),
+        (WAKEUP_FIRST_THING_F, "잡지, 신문"),
     )
     MEAL_DURING_A = "MEAL_DURING_A"
     MEAL_DURING_B = "MEAL_DURING_B"
@@ -115,8 +115,8 @@ class HabitCheckList(core_models.TimeStampedModel):
         (DEGREE_A, "안한다"),
         (DEGREE_B, "거의 안한다"),
         (DEGREE_C, "가끔 한다"),
-        (DEGREE_D, "거의 한다"),
-        (DEGREE_E, "자주 한다"),
+        (DEGREE_D, "자주 한다"),
+        (DEGREE_E, "매일 한다"),
     )
     AFTER_LUNCH_A = "AFTER_LUNCH_A"
     AFTER_LUNCH_B = "AFTER_LUNCH_B"
@@ -266,7 +266,7 @@ class HabitCheckList(core_models.TimeStampedModel):
         choices=WAKEUP_FIRST_THING_CHOICES, null=True, blank=True
     )
     wakeup_first_thing_etc = models.CharField(max_length=2000, null=True, blank=True)
-    meal = models.CharField(max_length=3000, null=True, blank=True)
+    meal = models.CharField(max_length=3000)
     meal_during = MultiSelectField(choices=MEAL_DURING_CHOICES, null=True, blank=True)
     meal_during_etc = models.CharField(max_length=2000, null=True, blank=True)
     meal_with_water = models.CharField(choices=DEGREE_CHOICES, max_length=300)

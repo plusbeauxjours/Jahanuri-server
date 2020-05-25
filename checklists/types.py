@@ -19,7 +19,6 @@ class HabitCheckListType(DjangoObjectType):
         model = models.HabitCheckList
 
 
-
 class SubmitCheckListResponse(graphene.ObjectType):
     checkListQuestions = graphene.List(CheckListQuestionType)
 

@@ -5,7 +5,6 @@ from . import types, models
 
 class SubmitHabitCheckList(graphene.Mutation):
     class Arguments:
-        job = graphene.String(required=True)
         wakeup_time = graphene.String(required=True)
         wakeup_long = graphene.String(required=True)
         wakeup_condition = graphene.List(graphene.String)
@@ -31,7 +30,7 @@ class SubmitHabitCheckList(graphene.Mutation):
         posture_detail_etc = graphene.String()
         body_heat = graphene.List(graphene.String)
         body_heat_etc = graphene.String()
-        exercise = graphene.String()
+        exercise = graphene.String(required=True)
         sleeping = graphene.List(graphene.String)
         sleeping_etc = graphene.String()
         before_sleeping = graphene.List(graphene.String)
@@ -44,7 +43,6 @@ class SubmitHabitCheckList(graphene.Mutation):
     @login_required
     def mutate(self, info, **kwargs):
         user = info.context.user
-        job = kwargs.get("job")
         wakeup_time = kwargs.get("wakeup_time")
         wakeup_long = kwargs.get("wakeup_long")
         wakeup_condition = kwargs.get("wakeup_condition")
@@ -80,7 +78,6 @@ class SubmitHabitCheckList(graphene.Mutation):
 
         habitCheckList = models.HabitCheckList.objects.create(
             user=user,
-            job=job,
             wakeup_time=wakeup_time,
             wakeup_long=wakeup_long,
             wakeup_condition=wakeup_condition,
