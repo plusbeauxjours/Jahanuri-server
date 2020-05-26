@@ -19,6 +19,13 @@ class ReportType(DjangoObjectType):
         model = models.Report
 
 
+class ApplicationType(DjangoObjectType):
+    get_approach = graphene.String(source="get_approach")
+
+    class Meta:
+        model = models.Application
+
+
 class GetClassListReponse(graphene.ObjectType):
     classes = graphene.List(ClassOrderType)
 
@@ -73,3 +80,7 @@ class CreateReportResponse(graphene.ObjectType):
 
 class SubmitApplicationResponse(graphene.ObjectType):
     ok = graphene.Boolean()
+
+
+class GetApplicationResponse(graphene.ObjectType):
+    application = graphene.Field(ApplicationType)

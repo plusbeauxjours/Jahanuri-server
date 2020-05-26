@@ -26,6 +26,11 @@ class Query(object):
         required=True,
         args={"report_uuid": graphene.String()},
     )
+    get_application = graphene.Field(
+        types.GetApplicationResponse,
+        resolver=queries.resolve_get_application,
+        required=True,
+    )
 
 
 class Mutation(object):

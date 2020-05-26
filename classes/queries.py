@@ -1,5 +1,6 @@
 from . import types, models
 from graphql_jwt.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
@@ -48,3 +49,13 @@ def resolve_get_report_detail(self, info, **kwargs):
         return types.GetReportDetailResponse(report=report)
     except models.Report.DoesNotExist:
         return types.GetReportDetailResponse(report=None)
+
+
+@login_required
+def resolve_get_application(self, info):
+    user = info.context.user
+    try:
+        application = user.application
+        return types.GetApplicationResponse(application=application)
+    except ObjectDoesNotExist:
+        return types.GetApplicationResponse(application=None)

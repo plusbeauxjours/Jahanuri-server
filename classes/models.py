@@ -133,8 +133,8 @@ class Application(core_models.TimeStampedModel):
     GENDER_FEMALE = "GENDER_FEMALE"
     GENDER_OTHER = "GENDER_OTHER"
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),
-        (GENDER_FEMALE, "Female"),
+        (GENDER_MALE, "남성"),
+        (GENDER_FEMALE, "여성"),
         (GENDER_OTHER, "Other"),
     )
     APPROACH_A = "APPROACH_A"
@@ -163,3 +163,6 @@ class Application(core_models.TimeStampedModel):
     approach = MultiSelectField(choices=APPROACH_CHOICES, null=True, blank=True)
     approach_etc = models.CharField(max_length=2000, null=True, blank=True)
     confirm = models.BooleanField(default=False)
+
+    def get_approach(self):
+        return list(self.approach)
