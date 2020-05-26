@@ -38,3 +38,4 @@ class Mutation(object):
     create_report = mutations.CreateReport.Field(required=True)
     # update_report = mutations.UpdateReport.Field(required=True)
     # remove_report = mutations.RemoveReport.Field(required=True)
+    submit_application = mutations.SubmitApplication.Field(required=True)

@@ -9,7 +9,7 @@ class Feed(core_models.TimeStampedModel):
         class_models.ClassOrder, on_delete=models.PROTECT, blank=True, null=True
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User", on_delete=models.PROTECT)
     text = models.TextField(blank=True, null=True)
 
     def __str__(self):

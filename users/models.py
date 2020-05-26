@@ -11,8 +11,8 @@ class User(AbstractUser):
     GENDER_FEMALE = "GENDER_FEMALE"
     GENDER_OTHER = "GENDER_OTHER"
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),
-        (GENDER_FEMALE, "Female"),
+        (GENDER_MALE, "남성"),
+        (GENDER_FEMALE, "여성"),
         (GENDER_OTHER, "Other"),
     )
     APPROACH_A = "APPROACH_A"
@@ -37,11 +37,10 @@ class User(AbstractUser):
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )
-    birth_date = models.DateField()
-    address = models.CharField(max_length=2000)
-    job = models.CharField(max_length=500)
-    phone_number = models.CharField(max_length=500)
-    email_address = models.CharField(max_length=500)
+    birth_date = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=2000, null=True, blank=True)
+    job = models.CharField(max_length=500, null=True, blank=True)
+    phone_number = models.CharField(max_length=500, null=True, blank=True)
     approach = MultiSelectField(choices=APPROACH_CHOICES, null=True, blank=True)
     approach_etc = models.CharField(max_length=2000, null=True, blank=True)
     has_submitted_previous_check_list = models.BooleanField(default=False)

@@ -32,9 +32,9 @@ class CheckListQuestion(core_models.TimeStampedModel):
 
 class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User", on_delete=models.PROTECT)
     question = models.ForeignKey(
-        CheckListQuestion, on_delete=models.CASCADE, related_name="question_set"
+        CheckListQuestion, on_delete=models.PROTECT, related_name="question_set"
     )
     previous_answer = models.BooleanField(default=False)
     later_answer = models.BooleanField(default=False)
@@ -255,7 +255,7 @@ class HabitCheckList(core_models.TimeStampedModel):
         (BEFORE_SLEEPING_E, "야식"),
     )
 
-    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    user = models.OneToOneField("users.User", on_delete=models.PROTECT)
     wakeup_time = models.CharField(max_length=200)
     wakeup_long = models.CharField(max_length=200)
     wakeup_condition = MultiSelectField(

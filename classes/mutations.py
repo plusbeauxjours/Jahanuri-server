@@ -391,16 +391,16 @@ class CreateReport(graphene.Mutation):
 class SubmitApplication(graphene.Mutation):
     class Arguments:
         gender = graphene.String(required=True)
-        birth_date = graphene.types.datetime.DateTime(required=True)
+        birth_date = graphene.types.datetime.DateTime()
         address = graphene.String(required=True)
         job = graphene.String(required=True)
         phone_number = graphene.String(required=True)
         email_address = graphene.String(required=True)
-        approach = graphene.String()
+        approach = graphene.List(graphene.String)
         approach_etc = graphene.String()
         confirm = graphene.Boolean(required=True)
 
-    Output = types.RemoveReportResponse
+    Output = types.SubmitApplicationResponse
 
     @login_required
     def mutate(self, info, **kwargs):
@@ -411,11 +411,11 @@ class SubmitApplication(graphene.Mutation):
         job = kwargs.get("job", "")
         phone_number = kwargs.get("phone_number", "")
         email_address = kwargs.get("email_address", "")
-        approach = kwargs.get("approach", "")
+        approach = kwargs.get("approach", [])
         approach_etc = kwargs.get("approach_etc", "")
-        confirm = kwargs.get("confirm", "")
+        confirm = kwargs.get("confirm")
 
-        models.Application.objects.create(
+        newApplication = models.Application.objects.create(
             user=user,
             gender=gender,
             birth_date=birth_date,
@@ -439,12 +439,11 @@ class SubmitApplication(graphene.Mutation):
         if phone_number != "":
             user.phone_number = phone_number
         if email_address != "":
-            user.email_address = email_address
-        if approach != "":
+            user.email = email_address
+        if approach != []:
             user.approach = approach
         if approach_etc != "":
             user.approach_etc = approach_etc
-
+        user.has_submitted_application = True
         user.save()
-
-        return types.RemoveReportResponse(ok=True)
+        return types.SubmitApplicationResponse(ok=True)

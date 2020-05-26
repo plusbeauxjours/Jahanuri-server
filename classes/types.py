@@ -23,32 +23,32 @@ class GetClassListReponse(graphene.ObjectType):
     classes = graphene.List(ClassOrderType)
 
 
-class CreateClassOrderResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class CreateClassOrderResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
-class UpdateClassOrderResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class UpdateClassOrderResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
-class RemoveClassOrderResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class RemoveClassOrderResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
 class GetReportCoverListResponse(graphene.ObjectType):
     reportCovers = graphene.List(ReportCoverType)
 
 
-class CreateReportCoverResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class CreateReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
-class UpdateReportCoverResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class UpdateReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
-class RemoveReportCoverResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
+# class RemoveReportCoverResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
 
 
 class GetReportListResponse(graphene.ObjectType):
@@ -63,9 +63,13 @@ class CreateReportResponse(graphene.ObjectType):
     report = graphene.Field(ReportType)
 
 
-class UpdateReportResponse(graphene.ObjectType):
-    report = graphene.Field(ReportType)
+# class UpdateReportResponse(graphene.ObjectType):
+#     report = graphene.Field(ReportType)
 
 
-class RemoveReportResponse(graphene.ObjectType):
+# class RemoveReportResponse(graphene.ObjectType):
+#     ok = graphene.Boolean()
+
+
+class SubmitApplicationResponse(graphene.ObjectType):
     ok = graphene.Boolean()

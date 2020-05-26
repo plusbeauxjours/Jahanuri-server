@@ -31,7 +31,7 @@ class ReportCover(core_models.TimeStampedModel):
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, related_name="user_set"
+        "users.User", on_delete=models.PROTECT, related_name="user_set"
     )
     report_type = models.CharField(
         choices=REPORT_TYPE, max_length=200, default=BODY_STUDY
@@ -62,7 +62,7 @@ class Report(core_models.TimeStampedModel):
     )
     report_date = models.DateField()
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    report_cover = models.ForeignKey(ReportCover, on_delete=models.CASCADE)
+    report_cover = models.ForeignKey(ReportCover, on_delete=models.PROTECT)
     saeng_sik_morning = models.CharField(max_length=200, blank=True, null=True)
     saeng_sik_noon = models.CharField(max_length=200, blank=True, null=True)
     saeng_sik_evening = models.CharField(max_length=200, blank=True, null=True)
@@ -116,7 +116,7 @@ class Report(core_models.TimeStampedModel):
 
 
 class Survey(core_models.TimeStampedModel):
-    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    user = models.OneToOneField("users.User", on_delete=models.PROTECT)
     has_married = models.BooleanField(default=False)
     has_married_etc = models.CharField(max_length=2000, null=True, blank=True)
     has_childbirth = models.BooleanField(default=False)
@@ -151,11 +151,11 @@ class Application(core_models.TimeStampedModel):
         (APPROACH_E, "책 <짠맛의 힘>"),
         (APPROACH_F, "홈페이지(자하누리, 직관의 몸공부)"),
     )
-    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    user = models.OneToOneField("users.User", on_delete=models.PROTECT)
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True, blank=True)
     address = models.CharField(max_length=2000)
     job = models.CharField(max_length=500)
     phone_number = models.CharField(max_length=500)
