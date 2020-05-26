@@ -152,8 +152,6 @@ class Application(core_models.TimeStampedModel):
         (APPROACH_F, "홈페이지(자하누리, 직관의 몸공부)"),
     )
     user = models.OneToOneField("users.User", on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=2000)
-    last_name = models.CharField(max_length=2000)
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True
     )

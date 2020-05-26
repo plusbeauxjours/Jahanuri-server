@@ -3,28 +3,47 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from core import models as core_models
 from checklists import models as check_list_models
+from multiselectfield import MultiSelectField
 
 
 class User(AbstractUser):
-
-    GENDER_MALE = "male"
-    GENDER_FEMALE = "female"
-    GENDER_OTHER = "other"
-
+    GENDER_MALE = "GENDER_MALE"
+    GENDER_FEMALE = "GENDER_FEMALE"
+    GENDER_OTHER = "GENDER_OTHER"
     GENDER_CHOICES = (
         (GENDER_MALE, "Male"),
         (GENDER_FEMALE, "Female"),
         (GENDER_OTHER, "Other"),
     )
-
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    gender = models.CharField(
-        choices=GENDER_CHOICES, max_length=10, null=True, blank=True
+    APPROACH_A = "APPROACH_A"
+    APPROACH_B = "APPROACH_B"
+    APPROACH_C = "APPROACH_C"
+    APPROACH_D = "APPROACH_D"
+    APPROACH_E = "APPROACH_E"
+    APPROACH_F = "APPROACH_F"
+    APPROACH_CHOICES = (
+        (APPROACH_A, "지인 소개"),
+        (APPROACH_B, "카페, 블로그"),
+        (APPROACH_C, "페이스북, 트위터"),
+        (APPROACH_D, "책 <치유본능>"),
+        (APPROACH_E, "책 <짠맛의 힘>"),
+        (APPROACH_F, "홈페이지(자하누리, 직관의 몸공부)"),
     )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     user_img = models.ImageField(upload_to="user_imgs/", null=True, blank=True)
     class_order = models.ForeignKey(
         "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True
     )
+    gender = models.CharField(
+        choices=GENDER_CHOICES, max_length=20, null=True, blank=True
+    )
+    birth_date = models.DateField()
+    address = models.CharField(max_length=2000)
+    job = models.CharField(max_length=500)
+    phone_number = models.CharField(max_length=500)
+    email_address = models.CharField(max_length=500)
+    approach = MultiSelectField(choices=APPROACH_CHOICES, null=True, blank=True)
+    approach_etc = models.CharField(max_length=2000, null=True, blank=True)
     has_submitted_previous_check_list = models.BooleanField(default=False)
     has_submitted_later_check_list = models.BooleanField(default=False)
     has_submitted_habit_check_list = models.BooleanField(default=False)
