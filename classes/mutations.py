@@ -452,10 +452,10 @@ class SubmitApplication(graphene.Mutation):
 class SubmitSurvey(graphene.Mutation):
     class Arguments:
         has_married = graphene.Boolean(required=True)
-        has_married_etc = graphene.String(required=True)
+        has_married_etc = graphene.String()
         has_childbirth = graphene.Boolean(required=True)
-        has_childbirth_etc = graphene.String(required=True)
-        how_many_child = graphene.String(required=True)
+        has_childbirth_etc = graphene.String()
+        how_many_child = graphene.String()
         status = graphene.String(required=True)
         change = graphene.String(required=True)
         agree_personal_information = graphene.Boolean(required=True)
