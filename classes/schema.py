@@ -31,6 +31,9 @@ class Query(object):
         resolver=queries.resolve_get_application,
         required=True,
     )
+    get_survey = graphene.Field(
+        types.GetSurveyResponse, resolver=queries.resolve_get_survey, required=True,
+    )
 
 
 class Mutation(object):
@@ -44,3 +47,4 @@ class Mutation(object):
     # update_report = mutations.UpdateReport.Field(required=True)
     # remove_report = mutations.RemoveReport.Field(required=True)
     submit_application = mutations.SubmitApplication.Field(required=True)
+    submit_survey = mutations.SubmitSurvey.Field(required=True)

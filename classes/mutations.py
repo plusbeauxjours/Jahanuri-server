@@ -447,3 +447,59 @@ class SubmitApplication(graphene.Mutation):
         user.has_submitted_application = True
         user.save()
         return types.SubmitApplicationResponse(ok=True)
+
+
+class SubmitSurvey(graphene.Mutation):
+    class Arguments:
+        has_married = graphene.Boolean(required=True)
+        has_married_etc = graphene.String(required=True)
+        has_childbirth = graphene.Boolean(required=True)
+        has_childbirth_etc = graphene.String(required=True)
+        how_many_child = graphene.String(required=True)
+        status = graphene.String(required=True)
+        change = graphene.String(required=True)
+        agree_personal_information = graphene.Boolean(required=True)
+        confirm = graphene.Boolean(required=True)
+
+    Output = types.SubmitSurveyResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+        user = info.context.user
+        has_married = kwargs.get("has_married", False)
+        has_married_etc = kwargs.get("has_married_etc", "")
+        has_childbirth = kwargs.get("has_childbirth", False)
+        has_childbirth_etc = kwargs.get("has_childbirth_etc", "")
+        how_many_child = kwargs.get("how_many_child", "")
+        status = kwargs.get("status", "")
+        change = kwargs.get("change", "")
+        agree_personal_information = kwargs.get("agree_personal_information", False)
+        confirm = kwargs.get("confirm", False)
+
+        newSurvey = models.Survey.objects.create(
+            user=user,
+            has_married=has_married,
+            has_married_etc=has_married_etc,
+            has_childbirth=has_childbirth,
+            has_childbirth_etc=has_childbirth_etc,
+            how_many_child=how_many_child,
+            status=status,
+            change=change,
+            agree_personal_information=agree_personal_information,
+            confirm=confirm,
+        )
+
+        if has_married != False:
+            user.has_married = has_married
+        if has_married_etc != "":
+            user.has_married_etc = has_married_etc
+        if has_childbirth != False:
+            user.has_childbirth = has_childbirth
+        if has_childbirth_etc != "":
+            user.has_childbirth_etc = has_childbirth_etc
+        if how_many_child != "":
+            user.how_many_child = how_many_child
+
+        user.has_submitted_survey = True
+        user.save()
+        return types.SubmitSurveyResponse(ok=True)

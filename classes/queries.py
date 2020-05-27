@@ -59,3 +59,13 @@ def resolve_get_application(self, info):
         return types.GetApplicationResponse(application=application)
     except ObjectDoesNotExist:
         return types.GetApplicationResponse(application=None)
+
+
+@login_required
+def resolve_get_survey(self, info):
+    user = info.context.user
+    try:
+        survey = user.survey
+        return types.GetSurveyResponse(survey=survey)
+    except ObjectDoesNotExist:
+        return types.GetSurveyResponse(survey=None)

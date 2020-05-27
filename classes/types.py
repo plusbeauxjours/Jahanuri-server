@@ -26,6 +26,11 @@ class ApplicationType(DjangoObjectType):
         model = models.Application
 
 
+class SurveyType(DjangoObjectType):
+    class Meta:
+        model = models.Survey
+
+
 class GetClassListReponse(graphene.ObjectType):
     classes = graphene.List(ClassOrderType)
 
@@ -84,3 +89,11 @@ class SubmitApplicationResponse(graphene.ObjectType):
 
 class GetApplicationResponse(graphene.ObjectType):
     application = graphene.Field(ApplicationType)
+
+
+class SubmitSurveyResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+
+
+class GetSurveyResponse(graphene.ObjectType):
+    survey = graphene.Field(SurveyType)
