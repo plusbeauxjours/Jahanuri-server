@@ -47,7 +47,6 @@ class User(AbstractUser):
     has_married_etc = models.CharField(max_length=2000, null=True, blank=True)
     has_childbirth = models.BooleanField(default=False)
     has_childbirth_etc = models.CharField(max_length=2000, null=True, blank=True)
-    how_many_child = models.CharField(max_length=5000, null=True, blank=True)
     has_submitted_previous_check_list = models.BooleanField(default=False)
     has_submitted_later_check_list = models.BooleanField(default=False)
     has_submitted_habit_check_list = models.BooleanField(default=False)

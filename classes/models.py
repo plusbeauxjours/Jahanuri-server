@@ -121,7 +121,6 @@ class Survey(core_models.TimeStampedModel):
     has_married_etc = models.CharField(max_length=2000, null=True, blank=True)
     has_childbirth = models.BooleanField(default=False)
     has_childbirth_etc = models.CharField(max_length=2000, null=True, blank=True)
-    how_many_child = models.CharField(max_length=5000, null=True, blank=True)
     status = models.CharField(max_length=5000, null=True, blank=True)
     change = models.CharField(max_length=5000, null=True, blank=True)
     agree_personal_information = models.BooleanField(default=False)
