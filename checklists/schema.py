@@ -8,6 +8,11 @@ class Query(object):
         resolver=queries.resolve_get_check_list_questions,
         required=True,
     )
+    get_habit_check_list = graphene.Field(
+        types.GetHabitCheckListResponse,
+        resolver=queries.resolve_get_habit_check_list,
+        required=True,
+    )
 
 
 class Mutation(object):

@@ -296,3 +296,36 @@ class HabitCheckList(core_models.TimeStampedModel):
     before_sleeping_etc = models.CharField(max_length=2000, null=True, blank=True)
     good_thing = models.CharField(max_length=2000)
     bad_thing = models.CharField(max_length=2000)
+
+    def get_wakeup_condition(self):
+        return list(self.wakeup_condition)
+
+    def get_wakeup_first_thing(self):
+        return list(self.wakeup_first_thing)
+
+    def get_meal_during(self):
+        return list(self.meal_during)
+
+    def get_after_lunch(self):
+        return list(self.after_lunch)
+
+    def get_saying(self):
+        return list(self.saying)
+
+    def get_walking(self):
+        return list(self.walking)
+
+    def get_posture(self):
+        return list(self.posture)
+
+    def get_posture_detail(self):
+        return list(self.posture_detail)
+
+    def get_body_heat(self):
+        return list(self.body_heat)
+
+    def get_sleeping(self):
+        return list(self.sleeping)
+
+    def get_before_sleeping(self):
+        return list(self.before_sleeping)
