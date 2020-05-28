@@ -1,9 +1,12 @@
+import random
+import json
 import graphene
 from graphql_jwt.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from graphene_file_upload.scalars import Upload
 from . import types, models
+from graphql_jwt.shortcuts import get_token
 
 
 class CreateUser(graphene.Mutation):
@@ -85,3 +88,55 @@ class RemoveUser(graphene.Mutation):
         user.delete()
 
         return types.RemoveUserResponse(ok=True)
+
+
+class AppleConnect(graphene.Mutation):
+    class Arguments:
+        first_name = graphene.String()
+        last_name = graphene.String()
+        email = graphene.String()
+        appleId = graphene.String(required=True)
+
+    Output = types.AppleConnectResponse
+
+    def mutate(self, info, **kwargs):
+
+        first_name = kwargs.get("first_name")
+        last_name = kwargs.get("last_name")
+        email = kwargs.get("email")
+        appleId = kwargs.get("appleId")
+
+        try:
+            user = models.User.objects.get(appleId=appleId)
+            token = get_token(user)
+            return types.AppleConnectResponse(ok=True, token=token)
+
+        except models.User.DoesNotExist:
+
+            with open(
+                "users/adjectives.json", mode="rt", encoding="utf-8"
+            ) as adjectives:
+                with open("users/nouns.json", mode="rt", encoding="utf-8") as nouns:
+                    adjectives = json.load(adjectives)
+                    nouns = json.load(nouns)
+                    if email:
+                        local, at, domain = email.rpartition("@")
+                        username = random.choice(adjectives) + local.capitalize()
+                    else:
+                        username = (
+                            random.choice(adjectives)
+                            + random.choice(nouns).capitalize()
+                        )
+
+                    newUser = models.User.objects.create_user(username)
+                    if first_name:
+                        newUser.first_name = first_name
+                    if last_name:
+                        newUser.last_name = last_name
+                    newUser.appleId = appleId
+                    newUser.email = email
+                    newUser.has_apple_account = True
+                    newUser.save()
+
+                    token = get_token(newUser)
+                    return types.AppleConnectResponse(ok=True, token=token)

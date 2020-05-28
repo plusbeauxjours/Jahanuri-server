@@ -49,3 +49,13 @@ class UpdateUserResponse(graphene.ObjectType):
 
 class RemoveUserResponse(graphene.ObjectType):
     ok = graphene.Boolean()
+
+
+class FacebookConnectResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+    token = graphene.String()
+
+
+class AppleConnectResponse(graphene.ObjectType):
+    ok = graphene.Boolean()
+    token = graphene.String()
