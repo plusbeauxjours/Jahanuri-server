@@ -51,11 +51,11 @@ class RemoveUserResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
 
-class FacebookConnectResponse(graphene.ObjectType):
+class AppleConnectResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     token = graphene.String()
 
 
-class AppleConnectResponse(graphene.ObjectType):
+class KakaoConnectResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     token = graphene.String()

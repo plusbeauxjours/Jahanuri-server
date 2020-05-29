@@ -27,5 +27,5 @@ class Mutation(object):
     create_user = mutations.CreateUser.Field(required=True)
     update_user = mutations.UpdateUser.Field(required=True)
     remove_user = mutations.RemoveUser.Field(required=True)
-    # facebook_connect = mutations.FacebookConnect.Field(required=True)
+    kakao_connect = mutations.KakaoConnect.Field(required=True)
     apple_connect = mutations.AppleConnect.Field(required=True)

@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from graphene_file_upload.scalars import Upload
 from . import types, models
+from django.core.files.base import ContentFile
+from io import BytesIO
+from urllib.request import urlopen
 from graphql_jwt.shortcuts import get_token
 
 
@@ -95,7 +98,7 @@ class AppleConnect(graphene.Mutation):
         first_name = graphene.String()
         last_name = graphene.String()
         email = graphene.String()
-        appleId = graphene.String(required=True)
+        apple_id = graphene.String(required=True)
 
     Output = types.AppleConnectResponse
 
@@ -104,15 +107,14 @@ class AppleConnect(graphene.Mutation):
         first_name = kwargs.get("first_name")
         last_name = kwargs.get("last_name")
         email = kwargs.get("email")
-        appleId = kwargs.get("appleId")
+        apple_id = kwargs.get("apple_id")
 
         try:
-            user = models.User.objects.get(appleId=appleId)
+            user = models.User.objects.get(apple_id=apple_id)
             token = get_token(user)
             return types.AppleConnectResponse(ok=True, token=token)
 
         except models.User.DoesNotExist:
-
             with open(
                 "users/adjectives.json", mode="rt", encoding="utf-8"
             ) as adjectives:
@@ -128,15 +130,60 @@ class AppleConnect(graphene.Mutation):
                             + random.choice(nouns).capitalize()
                         )
 
-                    newUser = models.User.objects.create_user(username)
+                    user = models.User.objects.create_user(username)
                     if first_name:
-                        newUser.first_name = first_name
+                        user.first_name = first_name
                     if last_name:
-                        newUser.last_name = last_name
-                    newUser.appleId = appleId
-                    newUser.email = email
-                    newUser.has_apple_account = True
-                    newUser.save()
+                        user.last_name = last_name
+                    user.apple_id = apple_id
+                    user.email = email
+                    user.has_apple_account = True
+                    user.save()
 
-                    token = get_token(newUser)
+                    token = get_token(user)
                     return types.AppleConnectResponse(ok=True, token=token)
+
+
+class KakaoConnect(graphene.Mutation):
+    class Arguments:
+        first_name = graphene.String()
+        last_name = graphene.String()
+        email = graphene.String()
+        kakao_id = graphene.String(required=True)
+
+    Output = types.KakaoConnectResponse
+
+    def mutate(self, info, **kwargs):
+
+        first_name = kwargs.get("first_name")
+        last_name = kwargs.get("last_name")
+        email = kwargs.get("email")
+        kakao_id = kwargs.get("kakao_id")
+
+        try:
+            user = models.User.objects.get(kakao_id=kakao_id)
+            token = get_token(user)
+            return types.KakaoConnectResponse(ok=True, token=token)
+
+        except models.User.DoesNotExist:
+            with open("users/adjectives.json", mode="rt", encoding="utf-8") as file:
+                adjectives = json.load(file)
+                if email:
+                    local, at, domain = email.rpartition("@")
+                username = random.choice(adjectives) + local.capitalize()
+
+                # avatar_url = "https://graph.facebook.com/%s/picture?type=large" % kakao_id
+                # user_img = BytesIO(urlopen(avatar_url).read())
+                # user_img.save("image.jpg", ContentFile(user_img.getvalue()), save=False)
+                # user_img.save()
+
+                # user.user_img = user_img
+                user = models.User.objects.create_user(username)
+                user.kakao_id = kakao_id
+                user.first_name = first_name
+                user.last_name = last_name
+                user.has_kakao_account = True
+                user.save()
+
+                token = get_token(user)
+                return types.KakaoConnectResponse(ok=True, token=token)

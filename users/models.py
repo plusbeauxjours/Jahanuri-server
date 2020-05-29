@@ -55,7 +55,8 @@ class User(AbstractUser):
     has_paid = models.BooleanField(default=False)
     has_kakao_account = models.BooleanField(default=False)
     has_apple_account = models.BooleanField(default=False)
-    appleId = models.CharField(blank=True, null=True, max_length=80)
+    apple_id = models.CharField(blank=True, null=True, max_length=80)
+    kakao_id = models.CharField(blank=True, null=True, max_length=80)
 
     def wood_before(self):
         wood = check_list_models.CheckListAnswer.objects.filter(
