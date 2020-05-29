@@ -16,6 +16,7 @@ import dj_database_url
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+env = environ.Env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,10 +41,10 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        "default": os.environ.get("DATABASE_URL"),
+        "default": env.db("DATABASE_URL"),
     }
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES["default"].update(db_from_env)
+    # db_from_env = dj_database_url.config(conn_max_age=500)
+    # DATABASES["default"].update(db_from_env)
 
 
 ALLOWED_HOSTS = ["*"]
