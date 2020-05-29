@@ -4,7 +4,6 @@ import graphene
 from graphql_jwt.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-from graphene_file_upload.scalars import Upload
 from . import types, models
 from django.core.files.base import ContentFile
 from io import BytesIO
