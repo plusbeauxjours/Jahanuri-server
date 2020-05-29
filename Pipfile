@@ -13,6 +13,13 @@ pillow = "*"
 graphene-file-upload = "*"
 django-graphql-jwt = "*"
 django-multiselectfield = "*"
+environ = "*"
+dj-database-url = "*"
+gunicorn = "*"
+whitenoise = "*"
+django-environ = "*"
+python-dotenv = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
