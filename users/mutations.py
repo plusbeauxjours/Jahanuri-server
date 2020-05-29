@@ -39,7 +39,6 @@ class UpdateUser(graphene.Mutation):
         password = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
-        user_img = Upload()
         address = graphene.String()
         job = graphene.String()
         phone_number = graphene.String()
@@ -53,7 +52,6 @@ class UpdateUser(graphene.Mutation):
         first_name = kwargs.get("first_name", "")
         last_name = kwargs.get("last_name", "")
         password = kwargs.get("password", "")
-        user_img = kwargs.get("user_img", None)
         address = kwargs.get("address", "")
         job = kwargs.get("job", "")
         phone_number = kwargs.get("phone_number", "")
@@ -65,8 +63,7 @@ class UpdateUser(graphene.Mutation):
             user.last_name = last_name
         if password != "":
             user.set_password(password)
-        if user_img is not None:
-            user.user_img = user_img
+
         user.address = address
         user.job = job
         user.phone_number = phone_number
