@@ -19,7 +19,8 @@ from dotenv import load_dotenv
 env = environ.Env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = environ.Path(__file__) - 2  # (pinner/config/settings/base.py - 3 = pinner/)
+# (pinner/config/settings/base.py - 3 = pinner/)
+ROOT_DIR = environ.Path(__file__) - 2
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -86,7 +87,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    
+
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -117,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 
@@ -147,8 +148,6 @@ STATIC_URL = "/static/"
 # )
 
 
-
-
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
@@ -156,7 +155,7 @@ AUTHENTICATION_BACKENDS = [
 
 GRAPHENE = {
     "SCHEMA": "config.schema.schema",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware", ],
 }
 
 

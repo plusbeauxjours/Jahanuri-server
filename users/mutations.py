@@ -37,8 +37,8 @@ class CreateUser(graphene.Mutation):
 class UpdateUser(graphene.Mutation):
     class Arguments:
         password = graphene.String()
-        first_name = graphene.String()
-        last_name = graphene.String()
+        first_name = graphene.String(required=True)
+        last_name = graphene.String(required=True)
         address = graphene.String()
         job = graphene.String()
         phone_number = graphene.String()
@@ -119,7 +119,8 @@ class AppleConnect(graphene.Mutation):
                     nouns = json.load(nouns)
                     if email:
                         local, at, domain = email.rpartition("@")
-                        username = random.choice(adjectives) + local.capitalize()
+                        username = random.choice(
+                            adjectives) + local.capitalize()
                     else:
                         username = (
                             random.choice(adjectives)
