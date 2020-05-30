@@ -2,13 +2,13 @@ import random
 import json
 import graphene
 from graphql_jwt.decorators import login_required
+from graphql_jwt.shortcuts import get_token
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from . import types, models
 from django.core.files.base import ContentFile
 from io import BytesIO
 from urllib.request import urlopen
-from graphql_jwt.shortcuts import get_token
 
 
 class CreateUser(graphene.Mutation):
@@ -100,10 +100,10 @@ class AppleConnect(graphene.Mutation):
 
     def mutate(self, info, **kwargs):
 
-        first_name = kwargs.get("first_name")
-        last_name = kwargs.get("last_name")
-        email = kwargs.get("email")
-        apple_id = kwargs.get("apple_id")
+        first_name = kwargs.get("first_name", "")
+        last_name = kwargs.get("last_name", "")
+        email = kwargs.get("email", "")
+        apple_id = kwargs.get("apple_id", "")
 
         try:
             user = models.User.objects.get(apple_id=apple_id)
@@ -117,7 +117,7 @@ class AppleConnect(graphene.Mutation):
                 with open("users/nouns.json", mode="rt", encoding="utf-8") as nouns:
                     adjectives = json.load(adjectives)
                     nouns = json.load(nouns)
-                    if email:
+                    if email != "":
                         local, at, domain = email.rpartition("@")
                         username = random.choice(
                             adjectives) + local.capitalize()
@@ -128,12 +128,14 @@ class AppleConnect(graphene.Mutation):
                         )
 
                     user = models.User.objects.create_user(username)
-                    if first_name:
+                    if first_name != "":
                         user.first_name = first_name
-                    if last_name:
+                    if last_name != "":
                         user.last_name = last_name
-                    user.apple_id = apple_id
-                    user.email = email
+                    if apple_id != "":
+                        user.apple_id = apple_id
+                    if email != "":
+                        user.email = email
                     user.has_apple_account = True
                     user.save()
 
