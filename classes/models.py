@@ -1,8 +1,11 @@
 import uuid
 from django.db import models
 from users import models as user_models
+from feeds import models as feed_models
 from core import models as core_models
 from multiselectfield import MultiSelectField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class ClassOrder(core_models.TimeStampedModel):
@@ -15,6 +18,15 @@ class ClassOrder(core_models.TimeStampedModel):
 
     def __str__(self):
         return str(self.order)
+
+
+@receiver(post_save, sender=ClassOrder)
+def create_welcome_message(sender, instance, created, **kwargs):
+    if created:
+        class_order= instance
+        user = user_models.User.objects.get(is_superuser=True)
+        feed_models.Feed.objects.create(
+            user=user, class_order=class_order, text="환영합니다.")
 
 
 class ReportCover(core_models.TimeStampedModel):

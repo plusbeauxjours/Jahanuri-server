@@ -2,8 +2,11 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
 from core import models as core_models
+from classes import models as class_models
 from checklists import models as check_list_models
 from multiselectfield import MultiSelectField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class User(AbstractUser):
@@ -64,7 +67,7 @@ class User(AbstractUser):
         default=False, verbose_name="신청서")
     has_submitted_survey = models.BooleanField(
         default=False, verbose_name="설문지")
-    has_paid = models.BooleanField(default=False, verbose_name="결제")
+    has_paid = models.BooleanField(default=False, verbose_name="💳결제")
     has_apple_account = models.BooleanField(
         default=False, verbose_name="애플 로긴")
     apple_id = models.CharField(
@@ -157,3 +160,13 @@ class User(AbstractUser):
     water_after.short_description = '수 2'
     sanghwa_before.short_description = '상화 1'
     sanghwa_after.short_description = '상화 2'
+
+
+@receiver(post_save, sender=User)
+def do_something_when_user_paid(sender, instance, created, **kwargs):
+    if not created:
+        user = instance
+        if user.has_paid == True and user.class_order == None:
+            class_order = class_models.ClassOrder.objects.last()
+            user.class_order = class_order
+            user.save()

@@ -6,7 +6,7 @@ from core import models as core_models
 
 class Feed(core_models.TimeStampedModel):
     class_order = models.ForeignKey(
-        class_models.ClassOrder, on_delete=models.PROTECT, blank=True, null=True, verbose_name="기수"
+        "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True,  verbose_name="기수"
     )
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
