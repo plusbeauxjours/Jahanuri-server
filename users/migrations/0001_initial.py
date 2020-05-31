@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ('auth', '0011_update_proxy_permissions'),
         ('classes', '0001_initial'),
     ]
 
@@ -22,41 +22,75 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('email', models.EmailField(blank=True, max_length=254, verbose_name='email address')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name='고유 번호')),
-                ('gender', models.CharField(blank=True, choices=[('GENDER_MALE', '남성'), ('GENDER_FEMALE', '여성'), ('GENDER_OTHER', 'Other')], max_length=20, null=True, verbose_name='성별')),
-                ('birth_date', models.DateField(blank=True, null=True, verbose_name='생년월일')),
-                ('address', models.CharField(blank=True, max_length=2000, null=True, verbose_name='주소')),
-                ('job', models.CharField(blank=True, max_length=500, null=True, verbose_name='직업')),
-                ('phone_number', models.CharField(blank=True, max_length=500, null=True, verbose_name='폰번호')),
-                ('approach', multiselectfield.db.fields.MultiSelectField(blank=True, choices=[('APPROACH_A', '지인 소개'), ('APPROACH_B', '카페, 블로그'), ('APPROACH_C', '페이스북, 트위터'), ('APPROACH_D', '책 <치유본능>'), ('APPROACH_E', '책 <짠맛의 힘>'), ('APPROACH_F', '홈페이지(자하누리, 직관의 몸공부)')], max_length=65, null=True, verbose_name='경로')),
-                ('approach_etc', models.CharField(blank=True, max_length=2000, null=True, verbose_name='경로 기타')),
-                ('has_married', models.BooleanField(default=False, verbose_name='결혼')),
-                ('has_married_etc', models.CharField(blank=True, max_length=2000, null=True, verbose_name='결혼 기타')),
-                ('has_childbirth', models.BooleanField(default=False, verbose_name='출산')),
-                ('has_childbirth_etc', models.CharField(blank=True, max_length=2000, null=True, verbose_name='출산 기타')),
-                ('has_submitted_previous_check_list', models.BooleanField(default=False, verbose_name='체크 1')),
-                ('has_submitted_later_check_list', models.BooleanField(default=False, verbose_name='체크 2')),
-                ('has_submitted_habit_check_list', models.BooleanField(default=False, verbose_name='습관')),
-                ('has_submitted_application', models.BooleanField(default=False, verbose_name='신청서')),
-                ('has_submitted_survey', models.BooleanField(default=False, verbose_name='설문지')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
+                ('password', models.CharField(
+                    max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(
+                    blank=True, null=True, verbose_name='last login')),
+                ('is_superuser', models.BooleanField(default=False,
+                                                     help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
+                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                                              max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
+                ('first_name', models.CharField(blank=True,
+                                                max_length=150, verbose_name='first name')),
+                ('last_name', models.CharField(blank=True,
+                                               max_length=150, verbose_name='last name')),
+                ('email', models.EmailField(blank=True,
+                                            max_length=254, verbose_name='email address')),
+                ('is_staff', models.BooleanField(default=False,
+                                                 help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
+                ('is_active', models.BooleanField(
+                    default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
+                ('date_joined', models.DateTimeField(
+                    default=django.utils.timezone.now, verbose_name='date joined')),
+                ('uuid', models.UUIDField(default=uuid.uuid4,
+                                          editable=False, unique=True, verbose_name='고유 번호')),
+                ('gender', models.CharField(blank=True, choices=[('GENDER_MALE', '남성'), ('GENDER_FEMALE', '여성'), (
+                    'GENDER_OTHER', 'Other')], max_length=20, null=True, verbose_name='성별')),
+                ('birth_date', models.DateField(
+                    blank=True, null=True, verbose_name='생년월일')),
+                ('address', models.CharField(blank=True,
+                                             max_length=2000, null=True, verbose_name='주소')),
+                ('job', models.CharField(blank=True,
+                                         max_length=500, null=True, verbose_name='직업')),
+                ('phone_number', models.CharField(blank=True,
+                                                  max_length=500, null=True, verbose_name='폰번호')),
+                ('approach', multiselectfield.db.fields.MultiSelectField(blank=True, choices=[('APPROACH_A', '지인 소개'), ('APPROACH_B', '카페, 블로그'), ('APPROACH_C', '페이스북, 트위터'), (
+                    'APPROACH_D', '책 <치유본능>'), ('APPROACH_E', '책 <짠맛의 힘>'), ('APPROACH_F', '홈페이지(자하누리, 직관의 몸공부)')], max_length=65, null=True, verbose_name='경로')),
+                ('approach_etc', models.CharField(blank=True,
+                                                  max_length=2000, null=True, verbose_name='경로 기타')),
+                ('has_married', models.BooleanField(
+                    default=False, verbose_name='결혼')),
+                ('has_married_etc', models.CharField(blank=True,
+                                                     max_length=2000, null=True, verbose_name='결혼 기타')),
+                ('has_childbirth', models.BooleanField(
+                    default=False, verbose_name='출산')),
+                ('has_childbirth_etc', models.CharField(blank=True,
+                                                        max_length=2000, null=True, verbose_name='출산 기타')),
+                ('has_submitted_previous_check_list', models.BooleanField(
+                    default=False, verbose_name='체크 1')),
+                ('has_submitted_later_check_list', models.BooleanField(
+                    default=False, verbose_name='체크 2')),
+                ('has_submitted_habit_check_list', models.BooleanField(
+                    default=False, verbose_name='습관')),
+                ('has_submitted_application', models.BooleanField(
+                    default=False, verbose_name='신청서')),
+                ('has_submitted_survey', models.BooleanField(
+                    default=False, verbose_name='설문지')),
                 ('has_paid', models.BooleanField(default=False, verbose_name='결제')),
-                ('has_apple_account', models.BooleanField(default=False, verbose_name='애플 로긴')),
-                ('apple_id', models.CharField(blank=True, max_length=80, null=True, verbose_name='애플 아뒤')),
-                ('push_token', models.CharField(blank=True, max_length=200, null=True, verbose_name='푸쉬 토큰')),
-                ('class_order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='classes.classorder', verbose_name='기수')),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                ('has_apple_account', models.BooleanField(
+                    default=False, verbose_name='애플 로긴')),
+                ('apple_id', models.CharField(blank=True,
+                                              max_length=80, null=True, verbose_name='애플 아뒤')),
+                ('push_token', models.CharField(blank=True,
+                                                max_length=200, null=True, verbose_name='푸쉬 토큰')),
+                ('class_order', models.ForeignKey(blank=True, null=True,
+                                                  on_delete=django.db.models.deletion.PROTECT, to='classes.classorder', verbose_name='기수')),
+                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                                                  related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.',
+                                                            related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],
             options={
                 'verbose_name': 'user',
