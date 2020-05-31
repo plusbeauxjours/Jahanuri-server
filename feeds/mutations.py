@@ -3,6 +3,7 @@ from graphql_jwt.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from classes import models as class_models
+from users import models as user_models
 from . import types, models
 
 
@@ -17,12 +18,14 @@ class CreateFeed(graphene.Mutation):
         user = info.context.user
         class_order_uuid = kwargs.get("class_order_uuid")
         text = kwargs.get("text")
-        class_order = class_models.ClassOrder.objects.get(uuid=class_order_uuid)
+        class_order = class_models.ClassOrder.objects.get(
+            uuid=class_order_uuid)
+        class_user = user_models.User.objects.filter(class_order=class_order)
         new_feed = models.Feed.objects.create(
             user=user, text=text, class_order=class_order
         )
 
-        return types.CreateFeedReponse(feed=new_feed)
+        return types.CreateFeedReponse(feed=new_feed, users=class_user)
 
 
 class RemoveFeed(graphene.Mutation):

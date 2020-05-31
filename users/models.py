@@ -67,11 +67,13 @@ class User(AbstractUser):
         default=False, verbose_name="신청서")
     has_submitted_survey = models.BooleanField(
         default=False, verbose_name="설문지")
-    has_paid = models.BooleanField(default=False, verbose_name="💳결제")
+    has_paid = models.BooleanField(default=False, verbose_name="결제")
     has_apple_account = models.BooleanField(
         default=False, verbose_name="애플 로긴")
     apple_id = models.CharField(
         blank=True, null=True, max_length=80, verbose_name="애플 아뒤")
+    push_token = models.CharField(
+        blank=True, null=True, max_length=200, verbose_name="푸쉬 토큰")
 
     def wood_before(self):
         wood = check_list_models.CheckListAnswer.objects.filter(

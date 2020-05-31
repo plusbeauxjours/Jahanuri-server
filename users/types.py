@@ -54,3 +54,7 @@ class RemoveUserResponse(graphene.ObjectType):
 class AppleConnectResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     token = graphene.String()
+
+
+class RegisterPushResponse (graphene.ObjectType):
+    ok = graphene.Boolean()

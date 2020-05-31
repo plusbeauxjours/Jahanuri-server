@@ -29,3 +29,4 @@ class Mutation(object):
     update_user = mutations.UpdateUser.Field(required=True)
     remove_user = mutations.RemoveUser.Field(required=True)
     apple_connect = mutations.AppleConnect.Field(required=True)
+    register_push = mutations.RegisterPush.Field(required=True)

@@ -9,6 +9,7 @@ from . import types, models
 from django.core.files.base import ContentFile
 from io import BytesIO
 from urllib.request import urlopen
+from django.db import IntegrityError
 
 
 class CreateUser(graphene.Mutation):
@@ -141,3 +142,29 @@ class AppleConnect(graphene.Mutation):
 
                     token = get_token(user)
                     return types.AppleConnectResponse(ok=True, token=token)
+
+
+class RegisterPush(graphene.Mutation):
+
+    class Arguments:
+        push_token = graphene.String(required=True)
+
+    Output = types.RegisterPushResponse
+
+    @login_required
+    def mutate(self, info, **kwargs):
+
+        user = info.context.user
+        push_token = kwargs.get('push_token')
+
+        try:
+            if user.push_token == push_token:
+                return types.RegisterPushResponse(ok=True)
+            else:
+                user.push_token = push_token
+                user.save()
+                return types.RegisterPushResponse(ok=True)
+
+        except IntegrityError as e:
+            print(e)
+            return types.RegisterPushResponse(ok=False)
