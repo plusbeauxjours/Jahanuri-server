@@ -4,12 +4,13 @@ from . import models
 
 @admin.register(models.CheckListQuestion)
 class CheckListQuestionAdmin(admin.ModelAdmin):
-    list_display = ("element", "question", "uuid")
+    list_display = ("element", "question")
 
 
 @admin.register(models.CheckListAnswer)
 class CheckListAnswerAdmin(admin.ModelAdmin):
     list_display = (
+        "user",
         "element",
         "question",
         "previous_answer",
@@ -22,4 +23,5 @@ class CheckListAnswerAdmin(admin.ModelAdmin):
 class HabitCheckListAdmin(admin.ModelAdmin):
     list_display = (
         "user",
+        "created_at"
     )

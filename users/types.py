@@ -12,7 +12,7 @@ class UserType(DjangoObjectType):
         user = info.context.user
         try:
             report_cover = class_models.ReportCover.objects.get(
-                user=user, report_type="body study"
+                user=user, report_type="BODY_STUDY"
             )
             return report_cover.uuid
         except:
@@ -52,10 +52,5 @@ class RemoveUserResponse(graphene.ObjectType):
 
 
 class AppleConnectResponse(graphene.ObjectType):
-    ok = graphene.Boolean()
-    token = graphene.String()
-
-
-class KakaoConnectResponse(graphene.ObjectType):
     ok = graphene.Boolean()
     token = graphene.String()

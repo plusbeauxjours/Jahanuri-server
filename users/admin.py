@@ -16,7 +16,6 @@ class UserAdmin(admin.ModelAdmin):
         "has_submitted_application",
         "has_submitted_survey",
         "has_paid",
-        "has_kakao_account",
         "has_apple_account",
         "wood_before",
         "wood_after",

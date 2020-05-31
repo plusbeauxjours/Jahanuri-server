@@ -7,46 +7,63 @@ from multiselectfield import MultiSelectField
 
 class CheckListQuestion(core_models.TimeStampedModel):
 
-    ELEMENT_WOOD = "wood"
-    ELEMENT_FIRE = "fire"
-    ELEMENT_EARTH = "earth"
-    ELEMENT_METAL = "metal"
-    ELEMENT_WATER = "water"
-    ELEMENT_SANGHWA = "sanghwa"
+    ELEMENT_WOOD = "ELEMENT_WOOD"
+    ELEMENT_FIRE = "ELEMENT_FIRE"
+    ELEMENT_EARTH = "ELEMENT_EARTH"
+    ELEMENT_METAL = "ELEMENT_METAL"
+    ELEMENT_WATER = "ELEMENT_WATER"
+    ELEMENT_SANGHWA = "ELEMENT_SANGHWA"
     ELEMENT_CHOICES = (
-        (ELEMENT_WOOD, "Wood"),
-        (ELEMENT_FIRE, "Fire"),
-        (ELEMENT_EARTH, "Earth"),
-        (ELEMENT_METAL, "Metal"),
-        (ELEMENT_WATER, "Water"),
-        (ELEMENT_SANGHWA, "Sanghwa"),
+        (ELEMENT_WOOD, "목"),
+        (ELEMENT_FIRE, "화"),
+        (ELEMENT_EARTH, "토"),
+        (ELEMENT_METAL, "금"),
+        (ELEMENT_WATER, "수"),
+        (ELEMENT_SANGHWA, "상화"),
     )
 
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    element = models.CharField(choices=ELEMENT_CHOICES, max_length=20, blank=True)
-    question = models.CharField(max_length=5000)
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
+    element = models.CharField(
+        choices=ELEMENT_CHOICES, max_length=20, blank=True, verbose_name="오행")
+    question = models.CharField(max_length=5000, verbose_name="질문")
 
     def __str__(self):
         return self.question
 
 
 class CheckListAnswer(core_models.TimeStampedModel):
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    user = models.ForeignKey("users.User", on_delete=models.PROTECT)
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.PROTECT, verbose_name="회원")
     question = models.ForeignKey(
-        CheckListQuestion, on_delete=models.PROTECT, related_name="question_set"
+        CheckListQuestion, on_delete=models.PROTECT, related_name="question_set", verbose_name="질문"
     )
-    previous_answer = models.BooleanField(default=False)
-    later_answer = models.BooleanField(default=False)
+    previous_answer = models.BooleanField(default=False, verbose_name="답변 1")
+    later_answer = models.BooleanField(default=False, verbose_name="답변 2")
 
     def element(self):
-        return self.question.element
+        if self.question.element == "ELEMENT_WOOD":
+            return "목"
+        elif self.question.element == "ELEMENT_FIRE":
+            return "화"
+        elif self.question.element == "ELEMENT_EARTH":
+            return "토"
+        elif self.question.element == "ELEMENT_METAL":
+            return "금"
+        elif self.question.element == "ELEMENT_WATER":
+            return "수"
+        else:
+            return "상화"
+    element.short_description = "오행"
 
     def is_changed(self):
         if self.previous_answer != None and self.later_answer != None:
             return self.previous_answer != self.later_answer
 
     is_changed.boolean = True
+    is_changed.short_description = "변화"
 
 
 class HabitCheckList(core_models.TimeStampedModel):
@@ -255,47 +272,73 @@ class HabitCheckList(core_models.TimeStampedModel):
         (BEFORE_SLEEPING_E, "야식"),
     )
 
-    user = models.OneToOneField("users.User", on_delete=models.PROTECT)
-    wakeup_time = models.CharField(max_length=200)
-    wakeup_long = models.CharField(max_length=200)
+    user = models.OneToOneField(
+        "users.User", on_delete=models.PROTECT, verbose_name="회원")
+    wakeup_time = models.CharField(
+        max_length=200, verbose_name="기상시간이 규칙적인가요?")
+    wakeup_long = models.CharField(
+        max_length=200, verbose_name="하루 몇 시간 정도 주무시나요?")
     wakeup_condition = MultiSelectField(
-        choices=WAKEUP_CONDITION_CHOICES, null=True, blank=True
+        choices=WAKEUP_CONDITION_CHOICES, null=True, blank=True, verbose_name="나는 아침에 일어났을 때..."
     )
-    wakeup_condition_etc = models.CharField(max_length=2000, null=True, blank=True)
+    wakeup_condition_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="나는 아침에 일어났을 때...(기타)")
     wakeup_first_thing = MultiSelectField(
-        choices=WAKEUP_FIRST_THING_CHOICES, null=True, blank=True
-    )
-    wakeup_first_thing_etc = models.CharField(max_length=2000, null=True, blank=True)
-    meal = models.CharField(max_length=3000)
-    meal_during = MultiSelectField(choices=MEAL_DURING_CHOICES, null=True, blank=True)
-    meal_during_etc = models.CharField(max_length=2000, null=True, blank=True)
-    meal_with_water = models.CharField(choices=DEGREE_CHOICES, max_length=300)
-    meal_with_snack = models.CharField(choices=DEGREE_CHOICES, max_length=300)
-    meal_with_night_food = models.CharField(choices=DEGREE_CHOICES, max_length=300)
-    after_lunch = MultiSelectField(choices=AFTER_LUNCH_CHOICES, null=True, blank=True)
-    after_lunch_etc = models.CharField(max_length=2000, null=True, blank=True)
-    saying = MultiSelectField(choices=SAYING_CHOICES, null=True, blank=True)
-    saying_etc = models.CharField(max_length=2000, null=True, blank=True)
-    saying_repeat = models.CharField(max_length=2000)
-    walking = MultiSelectField(choices=WALKING_CHOICES, null=True, blank=True)
-    walking_etc = models.CharField(max_length=2000, null=True, blank=True)
-    posture = MultiSelectField(choices=POSTURE_CHOICES, null=True, blank=True)
-    posture_etc = models.CharField(max_length=2000, null=True, blank=True)
+        choices=WAKEUP_FIRST_THING_CHOICES, null=True, blank=True, verbose_name="아침에 눈 떠서 가장 처음에 하는 일은?")
+    wakeup_first_thing_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="아침에 눈 떠서 가장 처음에 하는 일은?(기타)")
+    meal = models.CharField(
+        max_length=3000, verbose_name="하루에 몇 끼, 무엇을, 몇 시에 드시나요?")
+    meal_during = MultiSelectField(
+        choices=MEAL_DURING_CHOICES, null=True, blank=True, verbose_name="식사할 때, 나는 주로...")
+    meal_during_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="식사할 때, 나는 주로...(기타)")
+    meal_with_water = models.CharField(
+        choices=DEGREE_CHOICES, max_length=300, verbose_name="식사 전후에 물을 많이 마시나요?")
+    meal_with_snack = models.CharField(
+        choices=DEGREE_CHOICES, max_length=300, verbose_name="식사 외에 간식, 군것질을 하시나요?")
+    meal_with_night_food = models.CharField(
+        choices=DEGREE_CHOICES, max_length=300, verbose_name="야식을 많이 드시나요? ")
+    after_lunch = MultiSelectField(
+        choices=AFTER_LUNCH_CHOICES, null=True, blank=True, verbose_name="점심식사 후 나는 주로...")
+    after_lunch_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="점심식사 후 나는 주로...(기타)")
+    saying = MultiSelectField(
+        choices=SAYING_CHOICES, null=True, blank=True, verbose_name="내가 말을 할 때...")
+    saying_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="나내가 말을 할 때...(기타)")
+    saying_repeat = models.CharField(
+        max_length=2000, verbose_name="내가 말할 때 가장 자주 쓰는 말은?")
+    walking = MultiSelectField(
+        choices=WALKING_CHOICES, null=True, blank=True, verbose_name="나는 걸을 때...")
+    walking_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="나는 걸을 때...(기타)")
+    posture = MultiSelectField(
+        choices=POSTURE_CHOICES, null=True, blank=True, verbose_name="하루 중 어느 시간이 가장 긴가요?")
+    posture_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="하루 중 어느 시간이 가장 긴가요?(기타)")
     posture_detail = MultiSelectField(
-        choices=POSTURE_DETAIL_CHOICES, null=True, blank=True
-    )
-    posture_detail_etc = models.CharField(max_length=2000, null=True, blank=True)
-    body_heat = MultiSelectField(choices=BODY_HEAT_CHOICES, null=True, blank=True)
-    body_heat_etc = models.CharField(max_length=2000, null=True, blank=True)
-    exercise = models.CharField(max_length=2000)
-    sleeping = MultiSelectField(choices=SLEEPING_CHOICES, null=True, blank=True)
-    sleeping_etc = models.CharField(max_length=2000, null=True, blank=True)
+        choices=POSTURE_DETAIL_CHOICES, null=True, blank=True, verbose_name="나의 평소 자세는?")
+    posture_detail_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="나의 평소 자세는?(기타)")
+    body_heat = MultiSelectField(
+        choices=BODY_HEAT_CHOICES, null=True, blank=True, verbose_name="체온조절을 위해 어떤 일을 하고 계시나요?")
+    body_heat_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="체온조절을 위해 어떤 일을 하고 계시나요?(기타)")
+    exercise = models.CharField(
+        max_length=2000, verbose_name="지금 하고 있는 운동이 있으신가요?")
+    sleeping = MultiSelectField(
+        choices=SLEEPING_CHOICES, null=True, blank=True, verbose_name="잠은 어떻게 주무시나요?")
+    sleeping_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="잠은 어떻게 주무시나요?(기타)")
     before_sleeping = MultiSelectField(
-        choices=BEFORE_SLEEPING_CHOICES, null=True, blank=True
-    )
-    before_sleeping_etc = models.CharField(max_length=2000, null=True, blank=True)
-    good_thing = models.CharField(max_length=2000)
-    bad_thing = models.CharField(max_length=2000)
+        choices=BEFORE_SLEEPING_CHOICES, null=True, blank=True, verbose_name="자기 전 주로 하는 일은?")
+    before_sleeping_etc = models.CharField(
+        max_length=2000, null=True, blank=True, verbose_name="자기 전 주로 하는 일은?(기타)")
+    good_thing = models.CharField(
+        max_length=2000, verbose_name="나의 좋은 습관은 무엇인가요?")
+    bad_thing = models.CharField(
+        max_length=2000, verbose_name="나의 고치고 싶은 습관은 무엇인가요?")
 
     def get_wakeup_condition(self):
         return list(self.wakeup_condition)

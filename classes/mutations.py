@@ -80,7 +80,7 @@ from . import types, models
 #     def mutate(self, info, **kwargs):
 #         user = info.context.user
 #         order_uuid = kwargs.get("order_uuid")
-#         report_type = kwargs.get("report_type", "body study")
+#         report_type = kwargs.get("report_type", "BODY_STUDY")
 #         class_order = models.ClassOrder.objects.get(uuid=order_uuid)
 #         report_cover = models.ReportCover.objects.create(
 #             class_order=class_order, user=user, report_type=report_type
@@ -190,7 +190,8 @@ class CreateReport(graphene.Mutation):
         report_date = kwargs.get("report_date")
 
         try:
-            report_cover = models.ReportCover.objects.get(uuid=report_cover_uuid)
+            report_cover = models.ReportCover.objects.get(
+                uuid=report_cover_uuid)
             report = models.Report.objects.create(
                 report_date=report_date,
                 report_cover=report_cover,
@@ -223,7 +224,7 @@ class CreateReport(graphene.Mutation):
 
         except models.ReportCover.DoesNotExist:
             report_cover = models.ReportCover.objects.create(
-                user=user, report_type="etc"
+                user=user, report_type="ETC"
             )
             report = models.Report.objects.create(
                 report_date=report_date,
@@ -471,7 +472,8 @@ class SubmitSurvey(graphene.Mutation):
         has_childbirth_etc = kwargs.get("has_childbirth_etc", "")
         status = kwargs.get("status", "")
         change = kwargs.get("change", "")
-        agree_personal_information = kwargs.get("agree_personal_information", False)
+        agree_personal_information = kwargs.get(
+            "agree_personal_information", False)
         confirm = kwargs.get("confirm", False)
 
         newSurvey = models.Survey.objects.create(
