@@ -170,5 +170,6 @@ def do_something_when_user_paid(sender, instance, created, **kwargs):
         user = instance
         if user.has_paid == True and user.class_order == None:
             class_order = class_models.ClassOrder.objects.last()
-            user.class_order = class_order
-            user.save()
+            if class_order:
+                user.class_order = class_order
+                user.save()
