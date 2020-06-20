@@ -14,7 +14,6 @@ import os
 import environ
 import dj_database_url
 from os.path import join, dirname
-from dotenv import load_dotenv
 
 env = environ.Env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -53,6 +52,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 DJANGO_APPS = [
+    "grappelli",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -99,6 +99,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.request",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",

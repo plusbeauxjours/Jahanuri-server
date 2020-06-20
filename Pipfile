@@ -19,6 +19,7 @@ pillow = "*"
 django-dotenv = "*"
 graphene-django = "==2.9.1"
 psycopg2 = "*"
+django-grappelli = "*"
 
 [requires]
 python_version = "3.7"
