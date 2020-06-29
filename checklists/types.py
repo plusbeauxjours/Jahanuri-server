@@ -32,7 +32,7 @@ class HabitCheckListType(DjangoObjectType):
 
 
 class SubmitCheckListResponse(graphene.ObjectType):
-    checkListQuestions = graphene.List(CheckListQuestionType)
+    checkListAnswers = graphene.List(CheckListAnswerType)
 
 
 class SubmitHabitCheckListResponse(graphene.ObjectType):
