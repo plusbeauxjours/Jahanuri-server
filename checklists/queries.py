@@ -9,7 +9,7 @@ def resolve_get_check_list_questions(self, info, **kwargs):
     checkListQuestions = models.CheckListQuestion.objects.all()
     try:
         checkListAnswers = user.checkListAnswers.all()
-        return types.GetCheckListQuestionsResponse(checkListAnswers=checkListAnswers, checkListQuestions=None)
+        return types.GetCheckListQuestionsResponse(checkListAnswers=checkListAnswers, checkListQuestions=checkListQuestions)
     except ObjectDoesNotExist:
         return types.GetCheckListQuestionsResponse(checkListAnswers=None, checkListQuestions=checkListQuestions)
 
