@@ -132,7 +132,8 @@ class SubmitCheckList(graphene.Mutation):
             all_questions = models.CheckListQuestion.objects.all()
             for question in all_questions:
                 models.CheckListAnswer.objects.update_or_create(
-                    user=user, question=question, defaults={"previous_answer": False,},
+                    user=user, question=question, defaults={
+                        "previous_answer": False, },
                 )
             true_answers = models.CheckListAnswer.objects.filter(
                 question__uuid__in=true_answer_question_uuids, user=user,
@@ -144,7 +145,7 @@ class SubmitCheckList(graphene.Mutation):
             return types.SubmitCheckListResponse(checkListQuestions=checkListQuestions)
 
         else:
-            all_answers = models.CheckListAnswer.objects.all()
+            all_answers = user.checkListAnswers.all()
             all_answers.update(later_answer=False)
             true_answers = models.CheckListAnswer.objects.filter(
                 question__uuid__in=true_answer_question_uuids, user=user,
