@@ -45,6 +45,7 @@ class CheckListSubmitResponse(graphene.ObjectType):
 
 class GetCheckListQuestionsResponse(graphene.ObjectType):
     checkListQuestions = graphene.List(CheckListQuestionType)
+    checkListAnswers = graphene.List(CheckListAnswerType)
 
 
 class GetHabitCheckListResponse(graphene.ObjectType):

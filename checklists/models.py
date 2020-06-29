@@ -36,7 +36,7 @@ class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원")
+        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="checkListAnswers",)
     question = models.ForeignKey(
         CheckListQuestion, on_delete=models.PROTECT, related_name="question_set", verbose_name="질문"
     )
