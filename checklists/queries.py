@@ -6,9 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 @login_required
 def resolve_get_check_list_questions(self, info, **kwargs):
     user = info.context.user
-    checkListQuestions = models.CheckListQuestion.objects.all()
+    checkListQuestions = models.CheckListQuestion.objects.all().order_by("created_at")
     try:
-        checkListAnswers = user.checkListAnswers.all()
+        checkListAnswers = user.checkListAnswers.all().order_by("question__created_at")
         return types.GetCheckListQuestionsResponse(checkListAnswers=checkListAnswers, checkListQuestions=checkListQuestions)
     except ObjectDoesNotExist:
         return types.GetCheckListQuestionsResponse(checkListAnswers=None, checkListQuestions=checkListQuestions)
