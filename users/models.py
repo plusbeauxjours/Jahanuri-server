@@ -6,6 +6,7 @@ from classes import models as class_models
 from checklists import models as check_list_models
 from multiselectfield import MultiSelectField
 from django.db.models.signals import post_save
+from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 
 
@@ -173,3 +174,15 @@ def do_something_when_user_paid(sender, instance, created, **kwargs):
             if class_order:
                 user.class_order = class_order
                 user.save()
+        try:
+            report_cover = class_models.ReportCover.objects.get(
+                user=user
+            )
+            if report_cover.report_type == "ETC":
+                report_cover.report_type = "BODY_STUDY"
+                report_cover.save()
+        except ObjectDoesNotExist:
+            class_order = class_models.ClassOrder.objects.last()
+            class_models.ReportCover.objects.create(
+                user=user, report_type="BODY_STUDY", class_order=class_order
+            )

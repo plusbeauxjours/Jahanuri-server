@@ -23,7 +23,7 @@ class ClassOrder(core_models.TimeStampedModel):
 @receiver(post_save, sender=ClassOrder)
 def create_welcome_message(sender, instance, created, **kwargs):
     if created:
-        class_order= instance
+        class_order = instance
         user = user_models.User.objects.get(is_superuser=True)
         feed_models.Feed.objects.create(
             user=user, class_order=class_order, text="환영합니다.")
@@ -47,7 +47,7 @@ class ReportCover(core_models.TimeStampedModel):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, related_name="user_set", verbose_name="회원"
+        "users.User", on_delete=models.PROTECT, related_name="reportCover", verbose_name="회원"
     )
     report_type = models.CharField(
         choices=REPORT_TYPE, max_length=200, default=BODY_STUDY, verbose_name="일지 타입"
