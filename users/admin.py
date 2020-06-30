@@ -28,3 +28,6 @@ class UserAdmin(admin.ModelAdmin):
         "water_before",
         "water_after",
     )
+    search_fields = ('first_name', 'last_name', 'username')
+    list_filter = ('class_order', 'has_paid', 'gender',
+                   'has_apple_account', 'has_submitted_application')
