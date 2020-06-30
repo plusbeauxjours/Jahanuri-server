@@ -19,6 +19,10 @@ class ClassOrder(core_models.TimeStampedModel):
     def __str__(self):
         return str(self.order)
 
+    class Meta:
+        verbose_name = '1) 몸공부 기수'
+        verbose_name_plural = '1) 몸공부 기수'
+
 
 @receiver(post_save, sender=ClassOrder)
 def create_welcome_message(sender, instance, created, **kwargs):
@@ -59,6 +63,10 @@ class ReportCover(core_models.TimeStampedModel):
             + " "
             + self.user.first_name
         )
+
+    class Meta:
+        verbose_name = '1) 회원'
+        verbose_name_plural = '1) 회원들'
 
 
 class Report(core_models.TimeStampedModel):
@@ -129,6 +137,10 @@ class Report(core_models.TimeStampedModel):
     def __str__(self):
         return self.report_cover.user.last_name + " " + self.report_cover.user.first_name
 
+    class Meta:
+        verbose_name = '2) 일지'
+        verbose_name_plural = '2) 일지'
+
 
 class Survey(core_models.TimeStampedModel):
     user = models.OneToOneField(
@@ -146,6 +158,10 @@ class Survey(core_models.TimeStampedModel):
     agree_personal_information = models.BooleanField(
         default=False, verbose_name="개인정보 동의")
     confirm = models.BooleanField(default=False, verbose_name="확인")
+
+    class Meta:
+        verbose_name = '3) 설문지'
+        verbose_name_plural = '3) 설문지'
 
 
 class Application(core_models.TimeStampedModel):
@@ -189,3 +205,7 @@ class Application(core_models.TimeStampedModel):
 
     def get_approach(self):
         return list(self.approach)
+
+    class Meta:
+        verbose_name = '4) 신청서'
+        verbose_name_plural = '4) 신청서'

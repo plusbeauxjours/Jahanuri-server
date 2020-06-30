@@ -76,6 +76,10 @@ class User(AbstractUser):
     push_token = models.CharField(
         blank=True, null=True, max_length=200, verbose_name="푸쉬 토큰")
 
+    class Meta:
+        verbose_name = '회원'
+        verbose_name_plural = '회원'
+
     def wood_before(self):
         wood = check_list_models.CheckListAnswer.objects.filter(
             user=self, question__element="ELEMENT_WOOD", previous_answer=True

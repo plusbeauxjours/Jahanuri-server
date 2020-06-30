@@ -31,6 +31,10 @@ class CheckListQuestion(core_models.TimeStampedModel):
     def __str__(self):
         return self.question
 
+    class Meta:
+        verbose_name = '3) 체크리스트 질문🔒'
+        verbose_name_plural = '3) 체크리스트 질문🔒'
+
 
 class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(
@@ -64,6 +68,10 @@ class CheckListAnswer(core_models.TimeStampedModel):
 
     is_changed.boolean = True
     is_changed.short_description = "변화"
+
+    class Meta:
+        verbose_name = '2) 체크리스트 답변'
+        verbose_name_plural = '2) 체크리스트 답변'
 
 
 class HabitCheckList(core_models.TimeStampedModel):
@@ -372,3 +380,7 @@ class HabitCheckList(core_models.TimeStampedModel):
 
     def get_before_sleeping(self):
         return list(self.before_sleeping)
+
+    class Meta:
+        verbose_name = '1) 나의 습관'
+        verbose_name_plural = '1) 나의 습관'

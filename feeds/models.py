@@ -16,3 +16,7 @@ class Feed(core_models.TimeStampedModel):
 
     def __str__(self):
         return str(self.class_order)
+
+    class Meta:
+        verbose_name = '공지'
+        verbose_name_plural = '공지'
