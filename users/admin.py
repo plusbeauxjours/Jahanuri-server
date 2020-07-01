@@ -29,6 +29,8 @@ class UserAdmin(admin.ModelAdmin):
         "metal_after",
         "water_before",
         "water_after",
+        "sanghwa_before",
+        "sanghwa_after",
     )
     search_fields = ('first_name', 'last_name', 'username')
     list_filter = ('class_order', 'has_paid', 'gender',
