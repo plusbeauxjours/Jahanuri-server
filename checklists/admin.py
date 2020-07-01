@@ -20,7 +20,7 @@ class CheckListAnswerAdmin(admin.ModelAdmin):
         "is_changed",
     )
     search_fields = ('user__username', 'user__first_name',
-                     'user__last_name', 'element', 'question__question', 'uuid')
+                     'user__last_name', 'question__element', 'question__question', 'uuid')
     list_filter = ('question__element', )
 
 
