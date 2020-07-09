@@ -279,7 +279,8 @@ class HabitCheckList(core_models.TimeStampedModel):
         (BEFORE_SLEEPING_D, "일기, 글쓰기"),
         (BEFORE_SLEEPING_E, "야식"),
     )
-
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
         "users.User", on_delete=models.PROTECT, related_name="habit_checklist_user", verbose_name="회원")
     wakeup_time = models.CharField(

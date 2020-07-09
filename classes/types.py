@@ -62,5 +62,9 @@ class SubmitSurveyResponse(graphene.ObjectType):
     ok = graphene.Boolean()
 
 
-class GetSurveyResponse(graphene.ObjectType):
+class GetSurveyListResponse(graphene.ObjectType):
     surveys = graphene.List(SurveyType)
+
+
+class GetSurveyDetailResponse(graphene.ObjectType):
+    survey = graphene.Field(SurveyType)

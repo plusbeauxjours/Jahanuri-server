@@ -15,7 +15,15 @@ def resolve_get_check_list_questions(self, info, **kwargs):
 
 
 @login_required
-def resolve_get_habit_check_list(self, info):
+def resolve_get_habit_check_list_list(self, info):
     user = info.context.user
     habitCheckLists = models.HabitCheckList.objects.filter(user=user)
-    return types.GetHabitCheckListResponse(habitCheckLists=habitCheckLists)
+    return types.GetHabitCheckListListResponse(habitCheckLists=habitCheckLists)
+
+
+@login_required
+def resolve_get_habit_check_list_detail(self, info, **kwargs):
+    habit_check_list_uuid = kwargs.get("habit_check_list_uuid")
+    habitCheckList = models.HabitCheckList.objects.get(
+        uuid=habit_check_list_uuid)
+    return types.GetHabitCheckListDetailResponse(habitCheckList=habitCheckList)

@@ -62,8 +62,8 @@ class CreateReport(graphene.Mutation):
         diary = kwargs.get("diary")
         report_date = kwargs.get("report_date")
 
-        if user.has_paid and user.user_class_order:
-            class_order = user.user_class_order
+        if user.has_paid and user.class_order:
+            class_order = user.class_order
             report = models.Report.objects.create(
                 user=user,
                 report_date=report_date,

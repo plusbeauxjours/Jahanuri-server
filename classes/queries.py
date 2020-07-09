@@ -34,7 +34,14 @@ def resolve_get_application(self, info):
 
 
 @login_required
-def resolve_get_survey(self, info):
+def resolve_get_survey_list(self, info):
     user = info.context.user
     surveys = models.Survey.objects.filter(user=user)
-    return types.GetSurveyResponse(surveys=surveys)
+    return types.GetSurveyListResponse(surveys=surveys)
+
+
+@login_required
+def resolve_get_survey_detail(self, info,  **kwargs):
+    survey_uuid = kwargs.get("survey_uuid")
+    survey = models.Survey.objects.get(uuid=survey_uuid)
+    return types.GetSurveyDetailResponse(survey=survey)

@@ -103,6 +103,8 @@ class Report(core_models.TimeStampedModel):
 
 
 class Survey(core_models.TimeStampedModel):
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
         "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="survey",)
     has_married = models.BooleanField(default=False, verbose_name="결혼")

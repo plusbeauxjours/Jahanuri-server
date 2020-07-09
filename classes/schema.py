@@ -24,8 +24,16 @@ class Query(object):
         resolver=queries.resolve_get_application,
         required=True,
     )
-    get_survey = graphene.Field(
-        types.GetSurveyResponse, resolver=queries.resolve_get_survey, required=True,
+    get_survey_list = graphene.Field(
+        types.GetSurveyListResponse,
+        resolver=queries.resolve_get_survey_list,
+        required=True,
+    )
+    get_survey_detail = graphene.Field(
+        types.GetSurveyDetailResponse,
+        resolver=queries.resolve_get_survey_detail,
+        required=True,
+        args={"survey_uuid": graphene.String()},
     )
 
 
