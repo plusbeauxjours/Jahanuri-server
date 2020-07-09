@@ -179,13 +179,15 @@ class Application(core_models.TimeStampedModel):
     APPROACH_D = "APPROACH_D"
     APPROACH_E = "APPROACH_E"
     APPROACH_F = "APPROACH_F"
+    APPROACH_G = "APPROACH_G"
     APPROACH_CHOICES = (
         (APPROACH_A, "지인 소개"),
-        (APPROACH_B, "카페, 블로그"),
-        (APPROACH_C, "페이스북, 트위터"),
-        (APPROACH_D, "책 <치유본능>"),
-        (APPROACH_E, "책 <짠맛의 힘>"),
-        (APPROACH_F, "홈페이지(자하누리, 직관의 몸공부)"),
+        (APPROACH_B, "카페, 블로그, 홈페이지"),
+        (APPROACH_C, "페이스북, 인스타그램"),
+        (APPROACH_D, "유튜브"),
+        (APPROACH_E, "책<치유본능> 혹은 <짠맛의 힘>"),
+        (APPROACH_F, "외부강연"),
+        (APPROACH_G, "제품구입"),
     )
     user = models.OneToOneField(
         "users.User", on_delete=models.PROTECT, verbose_name="회원")
