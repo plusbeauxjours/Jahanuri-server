@@ -45,10 +45,10 @@ class Report(core_models.TimeStampedModel):
     )
 
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="report")
+        "users.User", on_delete=models.CASCADE, verbose_name="회원", related_name="report_user")
     report_date = models.DateField(verbose_name="일지 날짜")
     class_order = models.ForeignKey(
-        ClassOrder, on_delete=models.PROTECT, related_name="report_class_order", verbose_name="기수")
+        ClassOrder, on_delete=models.CASCADE, related_name="report_class_order", verbose_name="기수")
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     saeng_sik_morning = models.CharField(
@@ -106,7 +106,7 @@ class Survey(core_models.TimeStampedModel):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="survey",)
+        "users.User", on_delete=models.CASCADE, verbose_name="회원", related_name="survey",)
     has_married = models.BooleanField(default=False, verbose_name="결혼")
     has_married_etc = models.CharField(
         max_length=2000, null=True, blank=True, verbose_name="결혼 기타")
@@ -152,7 +152,7 @@ class Application(core_models.TimeStampedModel):
         (APPROACH_G, "제품구입"),
     )
     user = models.OneToOneField(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원")
+        "users.User", on_delete=models.CASCADE, verbose_name="회원")
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True, verbose_name="성별"
     )

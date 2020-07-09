@@ -38,7 +38,7 @@ class User(AbstractUser):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     class_order = models.ForeignKey(
-        "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True, verbose_name="기수", related_name="class_order"
+        "classes.ClassOrder", on_delete=models.CASCADE, blank=True, null=True, verbose_name="기수", related_name="class_order"
     )
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True, verbose_name="성별"

@@ -40,9 +40,9 @@ class CheckListAnswer(core_models.TimeStampedModel):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="checkListAnswers",)
+        "users.User", on_delete=models.CASCADE, verbose_name="회원", related_name="checkListAnswers",)
     question = models.ForeignKey(
-        CheckListQuestion, on_delete=models.PROTECT, related_name="question_set", verbose_name="질문"
+        CheckListQuestion, on_delete=models.CASCADE, related_name="question_set", verbose_name="질문"
     )
     previous_answer = models.BooleanField(default=False, verbose_name="답변 1")
     later_answer = models.BooleanField(default=False, verbose_name="답변 2")
@@ -282,7 +282,7 @@ class HabitCheckList(core_models.TimeStampedModel):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, related_name="habit_checklist_user", verbose_name="회원")
+        "users.User", on_delete=models.CASCADE, related_name="habit_checklist_user", verbose_name="회원")
     wakeup_time = models.CharField(
         max_length=200, verbose_name="기상시간이 규칙적인가요?")
     wakeup_long = models.CharField(
