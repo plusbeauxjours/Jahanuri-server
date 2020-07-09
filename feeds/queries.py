@@ -7,14 +7,11 @@ from graphql_jwt.decorators import login_required
 def resolve_get_feed_list(self, info):
     user = info.context.user
     try:
-        report_cover = class_models.ReportCover.objects.get(
-            user=user, report_type="BODY_STUDY"
-        )
         feeds = models.Feed.objects.filter(
-            class_order__uuid=report_cover.class_order.uuid
+            class_order=user.class_order
         ).order_by("-created_at")
         return types.GetFeedListResponse(feeds=feeds)
-    except class_models.ReportCover.DoesNotExist:
+    except models.Feed.DoesNotExist:
         return types.GetFeedListResponse(feeds=None)
 
 
@@ -27,5 +24,5 @@ def resolve_get_feed_list_staff(self, info, **kwargs):
             "-created_at"
         )
         return types.GetFeedListStaffResponse(feeds=feeds)
-    except class_models.ReportCover.DoesNotExist:
+    except models.Feed.DoesNotExist:
         return types.GetFeedListStaffResponse(feeds=None)

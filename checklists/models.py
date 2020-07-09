@@ -280,8 +280,8 @@ class HabitCheckList(core_models.TimeStampedModel):
         (BEFORE_SLEEPING_E, "야식"),
     )
 
-    user = models.OneToOneField(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.PROTECT, related_name="habit_checklist_user", verbose_name="회원")
     wakeup_time = models.CharField(
         max_length=200, verbose_name="기상시간이 규칙적인가요?")
     wakeup_long = models.CharField(

@@ -38,7 +38,7 @@ class User(AbstractUser):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
     class_order = models.ForeignKey(
-        "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True, verbose_name="기수"
+        "classes.ClassOrder", on_delete=models.PROTECT, blank=True, null=True, verbose_name="기수", related_name="class_order"
     )
     gender = models.CharField(
         choices=GENDER_CHOICES, max_length=20, null=True, blank=True, verbose_name="성별"
@@ -180,15 +180,3 @@ def do_something_when_user_paid(sender, instance, created, **kwargs):
             if class_order:
                 user.class_order = class_order
                 user.save()
-        try:
-            report_cover = class_models.ReportCover.objects.get(
-                user=user
-            )
-            if report_cover.report_type == "ETC":
-                report_cover.report_type = "BODY_STUDY"
-                report_cover.save()
-        except ObjectDoesNotExist:
-            class_order = class_models.ClassOrder.objects.last()
-            class_models.ReportCover.objects.create(
-                user=user, report_type="BODY_STUDY", class_order=class_order
-            )

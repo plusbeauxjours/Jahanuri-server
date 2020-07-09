@@ -8,19 +8,9 @@ class ClassOrderAdmin(admin.ModelAdmin):
     search_fields = ('order',)
 
 
-@admin.register(models.ReportCover)
-class ReportCoverAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "report_type",
-        "class_order",
-    )
-
-
 @admin.register(models.Report)
 class ReportAdmin(admin.ModelAdmin):
-    list_display = ("report_cover", "types",
-                    "report_date", "created_at")
+    list_display = ("report_date", "created_at")
     search_fields = ('user__username', 'user__first_name',
                      'user__last_name',)
 

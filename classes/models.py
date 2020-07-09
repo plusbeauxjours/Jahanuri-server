@@ -33,42 +33,6 @@ def create_welcome_message(sender, instance, created, **kwargs):
             user=user, class_order=class_order, text="환영합니다.")
 
 
-class ReportCover(core_models.TimeStampedModel):
-    BODY_STUDY = "BODY_STUDY"
-    ETC = "ETC"
-    REPORT_TYPE = (
-        (BODY_STUDY, "몸공부"),
-        (ETC, "기타"),
-    )
-    class_order = models.ForeignKey(
-        ClassOrder,
-        on_delete=models.PROTECT,
-        blank=True,
-        null=True,
-        related_name="class_order_set",
-        verbose_name="기수"
-    )
-    uuid = models.UUIDField(
-        default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
-    user = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, related_name="reportCover", verbose_name="회원"
-    )
-    report_type = models.CharField(
-        choices=REPORT_TYPE, max_length=200, default=BODY_STUDY, verbose_name="일지 타입"
-    )
-
-    def __str__(self):
-        return (
-            self.user.last_name
-            + " "
-            + self.user.first_name
-        )
-
-    class Meta:
-        verbose_name = '1) 회원'
-        verbose_name_plural = '1) 회원들'
-
-
 class Report(core_models.TimeStampedModel):
 
     MORNING = "morning"
@@ -79,11 +43,14 @@ class Report(core_models.TimeStampedModel):
         (NOON, "Noon"),
         (EVENING, "Evening"),
     )
+
+    user = models.ForeignKey(
+        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="report")
     report_date = models.DateField(verbose_name="일지 날짜")
+    class_order = models.ForeignKey(
+        ClassOrder, on_delete=models.PROTECT, related_name="report_class_order", verbose_name="기수")
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, unique=True, verbose_name="고유 번호")
-    report_cover = models.ForeignKey(
-        ReportCover, on_delete=models.PROTECT, verbose_name="일지 커버")
     saeng_sik_morning = models.CharField(
         max_length=200, blank=True, null=True, verbose_name="섭생식 아침")
     saeng_sik_noon = models.CharField(
@@ -127,15 +94,8 @@ class Report(core_models.TimeStampedModel):
         )
         return jeun_hae_jil.count()
 
-    def types(self):
-        if self.report_cover.report_type == "ETC":
-            return "기타"
-        else:
-            return str(self.report_cover.class_order)
-    types.short_description = '기수'
-
     def __str__(self):
-        return self.report_cover.user.last_name + " " + self.report_cover.user.first_name
+        return str(self.class_order.order) + " " + self.user.last_name + " " + self.user.first_name
 
     class Meta:
         verbose_name = '2) 일지'
@@ -143,8 +103,8 @@ class Report(core_models.TimeStampedModel):
 
 
 class Survey(core_models.TimeStampedModel):
-    user = models.OneToOneField(
-        "users.User", on_delete=models.PROTECT, verbose_name="회원")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.PROTECT, verbose_name="회원", related_name="survey",)
     has_married = models.BooleanField(default=False, verbose_name="결혼")
     has_married_etc = models.CharField(
         max_length=2000, null=True, blank=True, verbose_name="결혼 기타")

@@ -6,17 +6,6 @@ from . import models
 
 
 class UserType(DjangoObjectType):
-    report_cover_uuid = graphene.String()
-
-    def resolve_report_cover_uuid(self, info):
-        user = info.context.user
-        try:
-            report_cover = class_models.ReportCover.objects.get(
-                user=user, report_type="BODY_STUDY"
-            )
-            return report_cover.uuid
-        except:
-            return
 
     class Meta:
         model = models.User

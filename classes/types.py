@@ -9,11 +9,6 @@ class ClassOrderType(DjangoObjectType):
         model = models.ClassOrder
 
 
-class ReportCoverType(DjangoObjectType):
-    class Meta:
-        model = models.ReportCover
-
-
 class ReportType(DjangoObjectType):
     class Meta:
         model = models.Report
@@ -33,34 +28,6 @@ class SurveyType(DjangoObjectType):
 
 class GetClassListReponse(graphene.ObjectType):
     classes = graphene.List(ClassOrderType)
-
-
-# class CreateClassOrderResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
-
-
-# class UpdateClassOrderResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
-
-
-# class RemoveClassOrderResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
-
-
-class GetReportCoverListResponse(graphene.ObjectType):
-    reportCovers = graphene.List(ReportCoverType)
-
-
-# class CreateReportCoverResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
-
-
-# class UpdateReportCoverResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
-
-
-# class RemoveReportCoverResponse(graphene.ObjectType):
-#     ok = graphene.Boolean()
 
 
 class GetReportListResponse(graphene.ObjectType):
@@ -96,4 +63,4 @@ class SubmitSurveyResponse(graphene.ObjectType):
 
 
 class GetSurveyResponse(graphene.ObjectType):
-    survey = graphene.Field(SurveyType)
+    surveys = graphene.List(SurveyType)
