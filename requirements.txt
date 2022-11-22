@@ -13,7 +13,7 @@ graphene-django==2.9.1
 graphql-core==2.3.2
 graphql-relay==2.0.1
 gunicorn==20.0.4
-Pillow==7.1.2
+Pillow==9.3.0
 promise==2.3
 pycodestyle==2.6.0
 PyJWT==1.7.1
