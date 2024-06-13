@@ -11,5 +11,5 @@
 
 ### Portfolio Link
 
-> https://www.plusbeauxjours.com/projects/app/jahanuri-app
+> https://www.plusbeauxjours.info/projects/app/jahanuri
 
